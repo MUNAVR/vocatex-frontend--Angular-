@@ -1,0 +1,119 @@
+
+<div class="max-w-5xl mx-auto mt-10 p-8 bg-white shadow-lg rounded-lg flex">
+
+    <!-- Left Section -->
+    <div class="w-1/3 bg-white p-8">
+        <h2 class="text-2xl font-bold mb-6">Complete Your Profile</h2>
+        <p class="text-lg mb-6">Unlock 500+ Jobs From Top Companies And Receive Direct Calls From HRs</p>
+        <ul class="text-gray-600 space-y-4">
+            <li>✔️ Take 4 Steps</li>
+            <li>✔️ Direct Call From HR</li>
+            <li>✔️ Connect With Top Companies</li>
+        </ul>
+    </div>
+
+    <!-- Right Section -->
+    <div class="w-2/3 bg-green-300 p-8 rounded-lg">
+
+        <!-- Step Progress -->
+        <div class="flex justify-between mb-8">
+            <div class="text-center" id="step-1-label">
+                <div class="w-10 h-10 bg-green-400 text-white rounded-full flex items-center justify-center mx-auto">1</div>
+                <p class="mt-2 text-sm text-black">About Me</p>
+            </div>
+            <div class="text-center" id="step-2-label">
+                <div class="w-10 h-10 bg-green-400 text-white rounded-full flex items-center justify-center mx-auto">2</div>
+                <p class="mt-2 text-sm text-black">Address</p>
+            </div>
+            <div class="text-center" id="step-3-label">
+                <div class="w-10 h-10 bg-green-400 text-white rounded-full flex items-center justify-center mx-auto">3</div>
+                <p class="mt-2 text-sm text-black">Skills</p>
+            </div>
+            <div class="text-center" id="step-4-label">
+                <div class="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto">4</div>
+                <p class="mt-2 text-sm text-black">Projects</p>
+            </div>
+            <div class="text-center" id="step-5-label">
+                <div class="w-10 h-10 bg-green-400 text-white rounded-full flex items-center justify-center mx-auto">5</div>
+                <p class="mt-2 text-sm text-black">Education</p>
+            </div>
+            <div class="text-center" id="step-6-label">
+                <div class="w-10 h-10 bg-green-400 text-white rounded-full flex items-center justify-center mx-auto">6</div>
+                <p class="mt-2 text-sm text-black">Experience</p>
+            </div>
+        </div>
+
+        <!-- Form Section -->
+        <h3 class="text-xl font-bold mb-6">About Me</h3>
+
+        <!-- Form -->
+        <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+
+          <!-- Project Name -->
+          <div class="mb-4">
+            <label for="project_name" class="block text-black font-medium mb-2">Project Name</label>
+            <input type="text" id="project_name" formControlName="project_name" class="w-full p-3 border rounded focus:outline-none" placeholder="Enter project name" required>
+            <div *ngIf="projectForm.get('project_name')?.hasError('required') && projectForm.get('project_name')?.touched" class="text-red-500">
+              Project name is required.
+            </div>
+          </div>
+        
+          <!-- Description -->
+          <div class="mb-4">
+            <label for="description" class="block text-black font-medium mb-2">Description</label>
+            <textarea id="description" formControlName="description" class="w-full p-3 border rounded focus:outline-none" placeholder="Enter project description" required></textarea>
+            <div *ngIf="projectForm.get('description')?.hasError('required') && projectForm.get('description')?.touched" class="text-red-500">
+              Description is required.
+            </div>
+          </div>
+        
+          <!-- Technology Used -->
+          <div class="mb-4">
+            <label for="technology_used" class="block text-black font-medium mb-2">Technology Used</label>
+            <input type="text" id="technology_used" formControlName="technology_used" class="w-full p-3 border rounded focus:outline-none" placeholder="Enter technologies used" required>
+            <div *ngIf="projectForm.get('technology_used')?.hasError('required') && projectForm.get('technology_used')?.touched" class="text-red-500">
+              Technology used is required.
+            </div>
+          </div>
+        
+          <!-- Role -->
+          <div class="mb-4">
+            <label for="role" class="block text-black font-medium mb-2">Role</label>
+            <input type="text" id="role" formControlName="role" class="w-full p-3 border rounded focus:outline-none" placeholder="Enter your role in the project" required>
+            <div *ngIf="projectForm.get('role')?.hasError('required') && projectForm.get('role')?.touched" class="text-red-500">
+              Role is required.
+            </div>
+          </div>
+        
+          <!-- Start Date -->
+          <div class="mb-4">
+            <label for="start_date" class="block text-black font-medium mb-2">Start Date</label>
+            <input type="date" id="start_date" formControlName="start_date" class="w-full p-3 border rounded focus:outline-none" required>
+            <div *ngIf="projectForm.get('start_date')?.hasError('required') && projectForm.get('start_date')?.touched" class="text-red-500">
+              Start date is required.
+            </div>
+          </div>
+        
+          <!-- End Date -->
+          <div class="mb-4">
+            <label for="end_date" class="block text-black font-medium mb-2">End Date</label>
+            <input type="date" id="end_date" formControlName="end_date" class="w-full p-3 border rounded focus:outline-none" required>
+            <div *ngIf="projectForm.get('end_date')?.hasError('required') && projectForm.get('end_date')?.touched" class="text-red-500">
+              End date is required.
+            </div>
+            <div *ngIf="projectForm.hasError('invalidDateRange') && (projectForm.get('end_date')?.touched || projectForm.get('start_date')?.touched)" class="text-red-500">
+              End date must be after the start date.
+            </div>
+          </div>
+        
+          <!-- Submit Button -->
+          <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg">Submit</button>
+        
+        </form>
+        
+          
+          
+    </div>
+</div>
+
+

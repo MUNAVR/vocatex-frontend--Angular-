@@ -1,0 +1,101 @@
+<header class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+  <div class="logo text-3xl font-bold text-purple-700">
+    Vocatex <!-- Logo text -->
+  </div>
+  
+  <nav class="flex space-x-6">
+    <a href=" " class="text-black hover:text-purple-700 font-semibold">Home</a>
+    <a href="#" class="text-black hover:text-purple-700 font-semibold">Jobs</a>
+    <a routerLink="/resume_home" class="text-black hover:text-purple-700 font-semibold">Resume</a>
+    <a href="#" class="text-black hover:text-purple-700 font-semibold">Career Advice</a>
+    <a href="#" class="text-black hover:text-purple-700 font-semibold flex items-center">
+      Certifications
+      <span class="bg-green-500 text-white text-xs font-bold ml-1 px-2 py-1 rounded-full">New</span>
+    </a>
+  </nav>
+
+  <div class="flex items-center space-x-4">
+    <a (click)="logout()" class="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-600">Logout</a>
+  
+    <div class="border-l-2 border-gray-300 h-6"></div>
+  </div>
+  
+</header>
+
+<div class="flex h-screen">
+  <!-- Left Sidebar for Design Buttons -->
+  <div class="w-1/4 bg-gray-200 p-4 sticky top-0">
+    <h2 class="text-lg font-semibold mb-4">Select Design</h2>
+    
+    <button (click)="loadComponent(Design1Component); selectDesign('design1')" class="block w-full py-2 mb-2 rounded-full bg-gradient-to-r from-green-400 via-teal-400 to-blue-400 text-white hover:bg-gradient-to-l transition">
+      Design 1
+    </button>
+    <button (click)="loadComponent(Design2Component); selectDesign('design2')" class="block w-full py-2 mb-2 rounded-full bg-gradient-to-r from-green-400 via-teal-400 to-blue-400 text-white hover:bg-gradient-to-l transition">
+      Design 2
+    </button>
+    <button (click)="loadComponent(Design3Component); selectDesign('design3')" class="block w-full py-2 mb-2 rounded-full bg-gradient-to-r from-green-400 via-teal-400 to-blue-400 text-white hover:bg-gradient-to-l transition">
+      Design 3
+    </button>
+
+    <!-- Create Resume Button -->
+    <!-- Create Resume Button -->
+    <button 
+    (click)="goToSelectedDesign()" 
+    [disabled]="!selectedDesign" 
+    [ngClass]="{
+      'bg-purple-500 text-white hover:bg-purple-600': selectedDesign,
+      'bg-gray-400 text-gray-300 cursor-not-allowed': !selectedDesign
+    }"
+    class="block w-full py-2 mt-10 rounded-full transition" 
+    >
+    Full View
+    </button>
+    <!-- Download Resume Button -->
+    <button 
+    (click)="openDownloadOptions()" 
+    [disabled]="!selectedDesign" 
+    [ngClass]="{
+      'bg-blue-500 text-white hover:bg-blue-600': selectedDesign,
+      'bg-gray-400 text-gray-300 cursor-not-allowed': !selectedDesign
+    }"
+    class="block w-full py-2 mt-4 rounded-full transition"
+    >
+    Download Resume
+    </button>
+
+
+  </div>
+
+
+
+  <!-- Right Area for Design Preview -->
+  <div class="w-3/4 p-0 flex items-center justify-center">
+    <div class="max-w-full w-full h-[95vh] border border-gray-300 rounded-lg p-0 m-0">
+      <h2 class="text-lg font-semibold text-center">Design Preview</h2>
+      
+      <!-- Wrapping the dynamic content in a div with a reference -->
+      <div #resumeContainer>
+        <ng-template #dynamicComponentContainer></ng-template> <!-- Placeholder for dynamic component -->
+      </div>
+    </div>
+  </div>   
+</div>
+
+
+<div id="downloadModal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 hidden">
+  <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
+    <h3 class="text-lg font-semibold mb-4">Select Download Format</h3>
+    <button (click)="downloadResume('pdf')"
+      class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded w-full mb-2">
+      Download as PDF
+    </button>
+    <button (click)="downloadResume('excel')"
+      class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded w-full mb-4">
+      Download as Excel
+    </button>
+    <button (click)="closeDownloadModal()"
+      class="text-gray-700 hover:text-gray-900 font-semibold py-2 px-4 rounded">
+      Cancel
+    </button>
+  </div>
+</div>

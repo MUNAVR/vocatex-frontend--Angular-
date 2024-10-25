@@ -1,0 +1,194 @@
+
+<body class="bg-gray-100">
+    <!-- Header Section -->
+    <header class="bg-white text-black py-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <!-- Logo -->
+            <div class="logo text-3xl font-bold text-purple-700">Vocatex</div>
+    
+            <!-- Navigation Links -->
+            <nav class="flex space-x-6">
+                <a routerLink="#" class="text-black hover:text-purple-700 font-semibold">Home</a>
+                <a routerLink="/applied_jobs" class="text-black hover:text-purple-700 font-semibold">Applied-Jobs</a>
+                <a routerLink="#" class="text-black hover:text-purple-700 font-semibold flex items-center">
+                    Messages
+                    <span class="bg-red-500 text-white text-xs ml-1 px-1 py-1 rounded-full">New</span>
+                </a>
+            </nav>
+    
+            <!-- User Info -->
+            <div class="flex items-center space-x-4">
+                <!-- Display username dynamically -->
+                <span class="text-purple-700 font-medium">{{ username }}</span>
+                <img src="https://via.placeholder.com/40" class="rounded-full border-2 border-purple-700" alt="Profile Picture">
+    
+                <!-- Logout Button -->
+                <button (click)="logout()" class="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-600">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    
+    
+    <!-- Main Content -->
+    <div class="container mx-auto mt-6 px-4 flex">
+        <!-- Filters Section -->
+        <aside class="w-1/4 p-4 bg-white shadow-lg rounded-lg">
+            <h2 class="text-lg font-semibold mb-4 text-gray-900">Filters</h2>
+            
+            <!-- Date Posted -->
+            <div class="mb-6">
+                <h3 class="text-sm font-medium mb-2">Date Posted</h3>
+                <ul>
+                    <li>
+                        <input type="radio" id="all" name="date" checked>
+                        <label for="all" class="ml-2">All</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="last7" name="date">
+                        <label for="last7" class="ml-2">Last 7 Days</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="last30" name="date">
+                        <label for="last30" class="ml-2">Last 30 Days</label>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Salary Range -->
+            <div class="mb-6">
+                <h3 class="text-sm font-medium mb-2">Salary</h3>
+                <input type="range" min="10000" max="100000" class="w-full">
+                <div class="flex justify-between text-sm">
+                    <span>10,000</span>
+                    <span>1 Lakh</span>
+                </div>
+            </div>
+
+            <!-- Work Mode -->
+            <div class="mb-6">
+                <h3 class="text-sm font-medium mb-2">Work Mode</h3>
+                <ul>
+                    <li>
+                        <input type="radio" id="wfh" name="work_mode" checked>
+                        <label for="wfh" class="ml-2">Work From Home</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="wfo" name="work_mode">
+                        <label for="wfo" class="ml-2">Work From Office</label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Work Type -->
+            <div>
+                <h3 class="text-sm font-medium mb-2">Work Type</h3>
+                <ul>
+                    <li>
+                        <input type="radio" id="fulltime" name="work_type" checked>
+                        <label for="fulltime" class="ml-2">Full Time</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="parttime" name="work_type">
+                        <label for="parttime" class="ml-2">Part Time</label>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Job Search and Listings Section -->
+        <div class="w-3/4 ml-6">
+            <!-- Job Search Area -->
+            <div class="flex space-x-4 mb-6">
+                <input type="text" placeholder="Search Job By Skill" class="flex-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-violet-600">
+                <input type="text" placeholder="Search Job By Location" class="flex-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-violet-600">
+                <button class="bg-violet-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-violet-700">Search Job</button>
+            </div>
+
+            <!-- Job Listing Cards -->
+            <div class="space-y-6">
+                <!-- Job 1 -->
+                <div *ngFor="let job of jobs">
+                    <div class="bg-white shadow-lg rounded-lg p-6 flex items-center justify-between mb-4">
+                      <div>
+                        <h3 class="text-xl font-semibold text-gray-900">{{ job.title }}</h3>
+                        <p class="text-gray-500">{{ job.job_location }}</p>
+                        <p class="text-gray-700 mt-2">
+                          <span class="font-bold">₹{{ job.salary_from }}LPA - ₹{{ job.salary_to }}LAP</span>
+                        </p>
+                        <div class="mt-4 space-x-2">
+                          <span class="px-3 py-1 bg-violet-200 text-violet-700 rounded-full text-sm">{{ job.job_type }}</span>
+                          <span class="px-3 py-1 bg-blue-200 text-blue-700 rounded-full text-sm">{{ job.experience }}</span>
+                          <span class="px-3 py-1 bg-green-200 text-green-700 rounded-full text-sm">{{ job.job_mode }}</span>
+                        </div>
+                      </div>
+                      <a [routerLink]="['/job_apply', job.job_id]" class="bg-orange-500 text-white py-2 px-6 rounded-lg hover:bg-orange-600">Apply Now</a>
+                    </div>
+                  </div>
+                  
+            </div>
+        </div>
+    </div>
+</body>
+<footer class="bg-gray-900 text-gray-400 py-8 mt-12">
+    <div class="container mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-gray-300 font-bold mb-4">Job Categories</h3>
+                <ul>
+                    <li><a href="#" class="hover:text-gray-300">Category 1</a></li>
+                    <li><a href="#" class="hover:text-gray-300">Category 2</a></li>
+                    <li><a href="#" class="hover:text-gray-300">Category 3</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-gray-300 font-bold mb-4">Employers</h3>
+                <ul>
+                    <li><a href="#" class="hover:text-gray-300">Post a Job</a></li>
+                    <li><a href="#" class="hover:text-gray-300">Employer Dashboard</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-gray-300 font-bold mb-4">Job Seekers</h3>
+                <ul>
+                    <li><a href="#" class="hover:text-gray-300">Search Jobs</a></li>
+                    <li><a href="#" class="hover:text-gray-300">Create a Resume</a></li>
+                    <li><a href="#" class="hover:text-gray-300">Career Advice</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-gray-300 font-bold mb-4">Company Info</h3>
+                <ul>
+                    <li><a href="#" class="hover:text-gray-300">About Us</a></li>
+                    <li><a href="#" class="hover:text-gray-300">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt-8 border-t border-gray-700 pt-4">
+            <div class="flex justify-between">
+                <div>
+                    <h3 class="text-gray-300 font-bold mb-2">Stay Connected</h3>
+                    <div class="flex space-x-2">
+                        <a href="#" class="text-gray-300 hover:text-gray-300"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-gray-300"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-gray-300"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-gray-300"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="flex space-x-2">
+                    <a href="#" class="text-gray-300 hover:text-gray-300">Download The App</a>
+                    <a href="#" class="text-gray-300 hover:text-gray-300"><img src="app-store-badge.png" alt="App Store" class="h-6"></a>
+                    <a href="#" class="text-gray-300 hover:text-gray-300"><img src="google-play-badge.png" alt="Google Play" class="h-6"></a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 text-center text-sm">
+            © 2024 foundit | All Rights Reserved
+        </div>
+    </div>
+</footer>
+  
+
+

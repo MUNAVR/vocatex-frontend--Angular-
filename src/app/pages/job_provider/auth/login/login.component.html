@@ -1,0 +1,93 @@
+<!-- Header Section -->
+<header class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+    <div  class="logo text-3xl font-bold text-purple-700">
+        Vocatex <!-- Logo text -->
+    </div>
+
+    <div class="flex items-center space-x-4">
+        <a routerLink="/job_provider_landing" class="text-purple-700 border border-purple-700 px-4 py-2 rounded-md font-semibold flex items-center hover:bg-purple-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 18.364L15 8.485m-7.071-7.07L4 8.415m7 7.07L18.121 7.07m7.071 0L13.415 4.828"/></svg> Home
+        </a>
+        <a routerLink="/job_provider_register" class="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-600">Register</a>
+
+        <div class="border-l-2 border-gray-300 h-6"></div>
+    </div>
+</header>
+
+<!-- Main Login Section -->
+<div class="min-h-screen flex">
+
+    <!-- Illustration Section -->
+    <div class="hidden md:flex w-1/2 bg-white justify-center items-center flex-col">
+        <img src="login-illustration.png" alt="Vector Image" class="w-auto h-auto mb-4">
+    
+        <h3 class="text-center text-gray-700 font-sans text-lg opacity-50 leading-tight">
+            Create your profile now and connect with the top<br>job seekers around the world
+        </h3>
+    </div>
+    
+
+    <!-- Login Form Section -->
+    <div class="w-full md:w-1/2 bg-white shadow-md rounded-lg p-8 flex items-center justify-center">
+        <div class="max-w-md w-full">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Login</h2>
+
+            <form [formGroup]="loginForm">
+                <!-- Email Input -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
+                    <input formControlName="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter your email">
+                    <label class="text-red-500 text-sm mt-1" *ngIf="loginForm.controls['email'].errors?.['required'] && loginForm.controls['email'].touched">Email is required</label>
+                    <label class="text-red-500 text-sm mt-1" *ngIf="loginForm.controls['email'].errors?.['email'] && loginForm.controls['email'].touched">Enter a valid email</label>
+                </div>
+
+                <!-- Password Input -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
+                    <input formControlName="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Enter your password">
+                    <label class="text-red-500 text-sm mt-1" *ngIf="loginForm.controls['password'].errors?.['required'] && loginForm.controls['password'].touched">Password is required</label>
+                    <label class="text-red-500 text-sm mt-1" *ngIf="loginForm.controls['password'].errors?.['minlength'] && loginForm.controls['password'].touched">Password must be at least 6 characters long</label>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="mb-4">
+                    <button 
+                        type="submit" 
+                        (click)="login()" 
+                        [disabled]="loginForm.invalid" 
+                        [class.disabled]="loginForm.invalid" 
+                        class="w-full px-4 py-2 bg-purple-600 text-white rounded-md shadow-sm hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50"
+                    >
+                        Login
+                    </button>
+                </div>
+                
+
+                <!-- Remember Me Checkbox and Forgot Password -->
+                <div class="flex items-center justify-between mb-6">
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" class="form-checkbox text-purple-600">
+                        <span class="ml-2 text-gray-700">Remember Me</span>
+                    </label>
+                    <a href="#" class="text-sm text-purple-600 hover:underline">Forgot Password?</a>
+                </div>
+
+                <!-- Register Link -->
+                <div class="text-center">
+                    <p class="text-sm text-black-600">New to Vocatex? 
+                        <a routerLink="/job_seeker_register" class="text-purple-700 hover:underline">Register</a>
+                    </p>
+                </div>
+            </form>
+
+            <!-- Google Login Button -->
+            <div class="mb-6">
+                <div id="google-button"></div>
+                <button (click)="google()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex justify-center items-center">
+                <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google Icon" class="w-5 h-5 mr-2">
+                Login with Google
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

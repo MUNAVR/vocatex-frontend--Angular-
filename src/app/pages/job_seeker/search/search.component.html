@@ -1,0 +1,272 @@
+<body class="bg-gray-100">
+
+  <!-- Header Section -->
+<header class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+    <div class="logo text-3xl font-bold text-purple-700">
+      Vocatex <!-- Logo text -->
+    </div>
+    
+    <nav class="flex space-x-6">
+      <a routerLink="/job_seeker_home" class="text-black hover:text-purple-700 font-semibold">Jobs</a>
+      <a routerLink="/resume_home" class="text-black hover:text-purple-700 font-semibold">Resume</a>
+      <a routerLink="/portfolio_home" class="text-black hover:text-purple-700 font-semibold">Portfolio</a>
+      <a href="#" class="text-black hover:text-purple-700 font-semibold flex items-center">
+        Certifications
+        <span class="bg-green-500 text-white text-xs  ml-1 px-1 py-1 rounded-full">New</span>
+      </a>
+    </nav>
+  
+    <div class="flex items-center space-x-4">
+      <!-- Login Button (visible when user is NOT logged in) -->
+      <a *ngIf="!isLoggedIn()" routerLink="/job_seeker_login" class="text-purple-700 border border-purple-700 px-4 py-2 rounded-md font-semibold flex items-center hover:bg-purple-100">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 18.364L15 8.485m-7.071-7.07L4 8.415m7 7.07L18.121 7.07m7.071 0L13.415 4.828"/>
+        </svg>
+        Login
+      </a>
+
+      <!-- Logout Button (visible when user IS logged in) -->
+      <button *ngIf="isLoggedIn()" (click)="logout()" class="text-purple-700 border border-purple-700 px-4 py-2 rounded-md font-semibold flex items-center hover:bg-purple-100">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 18.364L15 8.485m-7.071-7.07L4 8.415m7 7.07L18.121 7.07m7.071 0L13.415 4.828"/>
+        </svg>
+        Logout
+      </button>
+
+      <a *ngIf="!isLoggedIn()" routerLink="/job_seeker_register" class="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-600">Register</a>
+    
+      <div class="border-l-2 border-gray-300 h-6"></div>
+    
+      <a *ngIf="!isLoggedIn()" routerLink="/job_provider_landing" class="text-black hover:text-purple-700 font-semibold">Employers Login</a>
+    </div>
+</header>
+  
+  
+  
+<section class="relative bg-image text-white py-10 text-center h-screen">
+  <div class="relative z-10 flex flex-col justify-center items-center h-full px-4">
+    <h1 class="text-5xl font-extrabold mb-10">Find work you'll love, fast.</h1>
+    <form [formGroup]="searchForm" (ngSubmit)="searchJobs()" class="w-full max-w-2xl mx-auto flex bg-white bg-opacity-90 rounded-full shadow-lg overflow-hidden">
+      <input formControlName="jobTitle" type="text" placeholder="Search by job, company or skills" 
+        class="w-full py-5 px-6 rounded-none focus:outline-none text-gray-900 text-lg" 
+        [ngClass]="{'border-red-500': searchForm.get('jobTitle')?.invalid && searchForm.get('jobTitle')?.touched}" />
+      
+      <div *ngIf="searchForm.get('jobTitle')?.invalid && searchForm.get('jobTitle')?.touched" class="text-red-500">
+        <small *ngIf="searchForm.get('jobTitle')?.errors?.['required']">Job Title is required.</small>
+        <small *ngIf="searchForm.get('jobTitle')?.errors?.['minlength']">Job Title must be at least 3 characters.</small>
+      </div>
+
+      <input formControlName="location" type="text" placeholder="Location" 
+        class="w-1/3 py-5 px-6 focus:outline-none text-gray-900 text-lg border-l border-gray-200" 
+        [ngClass]="{'border-red-500': searchForm.get('location')?.invalid && searchForm.get('location')?.touched}" />
+      
+      <div *ngIf="searchForm.get('location')?.invalid && searchForm.get('location')?.touched" class="text-red-500">
+        <small>Location is required.</small>
+      </div>
+
+      <button type="submit" class="bg-blue-600 px-10 py-5 text-white font-bold text-lg hover:bg-blue-700 transition duration-300" [disabled]="searchForm.invalid">
+        Search
+      </button>
+    </form>
+  </div>
+</section>
+
+
+<app-search-result-modal [jobs]="jobs" [isOpen]="isModalOpen"></app-search-result-modal>
+
+
+<style>
+  /* Import Google Font */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  .bg-image {
+    background-image: url('hero@2x.png');
+    background-size: cover;
+    background-position: top; /* Image aligned to the top */
+    background-repeat: no-repeat;
+  }
+
+  h1 {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  input, button {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  form {
+    max-width: 60%; /* Reduced width of the search area */
+  }
+</style>
+
+
+
+  <!-- Main Job Features -->
+  <section class="text-center mt-8">
+    <h2 class="text-4xl font-extrabold text-gray-900 mb-8">Find the Perfect Job for YOU</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
+      <!-- Resume Creation Card -->
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 border-t-4 border-blue-600 rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow duration-300">
+        <div class="flex items-center justify-center mb-3">
+          <!-- SVG for Resume Creation -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-blue-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M16 1H8C6.9 1 6 1.9 6 3v18c0 1.1.9 2 2 2h8c1.1 0 2-0.9 2-2V3c0-1.1-.9-2-2-2zM8 3h8c.5 0 .9.4.9.9V8H7.1V3.9C7.1 3.4 7.5 3 8 3zm8 18H8v-2h8v2zm0-4H8v-2h8v2zm0-4H8V7h8v6zm-3-7H9v2h4V7zm5 6.5h-4v-1h4v1zm-6 0h-4v-1h4v1z"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Resume Creation</h3>
+        <p class="text-gray-700 text-sm">Craft a standout resume in minutes with our easy-to-use tools.</p>
+      </div>
+  
+      <!-- Free Portfolio Card -->
+      <div class="bg-gradient-to-br from-purple-50 to-purple-100 border-t-4 border-purple-600 rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow duration-300">
+        <div class="flex items-center justify-center mb-3">
+          <!-- SVG for Portfolio Website -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-purple-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M6 4h12c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0-2C4.9 2 4 2.9 4 4v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H6zM6 20h12v-1.5H6V20zm0-3h12v-1.5H6V17zm0-3h12v-1.5H6V14zm0-3h12v-1.5H6V11zm0-3h12V6H6v2zm0-4h12V4H6v2z"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Free Portfolio</h3>
+        <p class="text-gray-700 text-sm">Showcase your achievements with a customized portfolio website.</p>
+      </div>
+  
+      <!-- AI Assist Card -->
+      <div class="bg-gradient-to-br from-green-50 to-green-100 border-t-4 border-green-600 rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow duration-300">
+        <div class="flex items-center justify-center mb-3">
+          <!-- SVG for AI Assistance -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-green-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h-2v-2h2v2zm0-4h-2V7h2v5zm6 4h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">AI Assist</h3>
+        <p class="text-gray-700 text-sm">Leverage AI to get tailored content recommendations and insights.</p>
+      </div>
+  
+      <!-- Job Opportunities Card -->
+      <div class="bg-gradient-to-br from-red-50 to-red-100 border-t-4 border-red-600 rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow duration-300">
+        <div class="flex items-center justify-center mb-3">
+          <!-- SVG for Job Opportunities -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 3v6.2l4.9 2.6 1.1-1.9L14 9.2V5h2v4.8l3.1 1.6-1.1 1.9L14 12V3zm-1 1.2L6.1 8.2 5 10.1 9.8 12l4.1-2.1V4.2zM12 20v-6.2l4.9-2.6 1.1 1.9-4.8 2.6V19h2v-4.8l3.1-1.6-1.1-1.9L14 14v6.8h-2zM2 12l1.1 1.9L7.9 10.1 6.8 8.2 2 12z"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Job Opportunities</h3>
+        <p class="text-gray-700 text-sm">Discover job openings that match your skills and career aspirations.</p>
+      </div>
+    </div>
+  </section>
+  
+
+  <section class="mt-12">
+    <h2 class="text-center text-3xl font-bold text-gray-800 mb-8">Popular Categories</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto px-4">
+        <div class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white p-4 rounded-lg shadow-lg flex items-center justify-center transition-transform transform hover:scale-105">
+            <i class="fa fa-bank text-2xl"></i>
+            <span class="ml-3 text-lg font-semibold">Banking</span>
+        </div>
+        <div class="bg-gradient-to-r from-pink-500 to-red-500 text-white p-4 rounded-lg shadow-lg flex items-center justify-center transition-transform transform hover:scale-105">
+            <i class="fa fa-home text-2xl"></i>
+            <span class="ml-3 text-lg font-semibold">Work From Home</span>
+        </div>
+        <div class="bg-gradient-to-r from-green-500 to-teal-500 text-white p-4 rounded-lg shadow-lg flex items-center justify-center transition-transform transform hover:scale-105">
+            <i class="fa fa-users text-2xl"></i>
+            <span class="ml-3 text-lg font-semibold">HR</span>
+        </div>
+        <div class="bg-gradient-to-r from-yellow-500 to-orange-500 text-white p-4 rounded-lg shadow-lg flex items-center justify-center transition-transform transform hover:scale-105">
+            <i class="fa fa-bullhorn text-2xl"></i>
+            <span class="ml-3 text-lg font-semibold">Sales</span>
+        </div>
+        <div class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-4 rounded-lg shadow-lg flex items-center justify-center transition-transform transform hover:scale-105">
+            <i class="fa fa-calculator text-2xl"></i>
+            <span class="ml-3 text-lg font-semibold">Accounting</span>
+        </div>
+        <div class="bg-gradient-to-r from-teal-500 to-green-500 text-white p-4 rounded-lg shadow-lg flex items-center justify-center transition-transform transform hover:scale-105">
+            <i class="fa fa-headset text-2xl"></i>
+            <span class="ml-3 text-lg font-semibold">Customer Support</span>
+        </div>
+        <div class="bg-gradient-to-r from-pink-500 to-purple-500 text-white p-4 rounded-lg shadow-lg flex items-center justify-center transition-transform transform hover:scale-105">
+            <i class="fa fa-calendar text-2xl"></i>
+            <span class="ml-3 text-lg font-semibold">Event Management</span>
+        </div>
+        <div class="bg-gradient-to-r from-gray-500 to-black text-white p-4 rounded-lg shadow-lg flex items-center justify-center transition-transform transform hover:scale-105">
+            <i class="fa fa-code text-2xl"></i>
+            <span class="ml-3 text-lg font-semibold">IT</span>
+        </div>
+        <div class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white p-4 rounded-lg shadow-lg flex items-center justify-center transition-transform transform hover:scale-105">
+            <i class="fa fa-database text-2xl"></i>
+            <span class="ml-3 text-lg font-semibold">SQL</span>
+        </div>
+        <div class="bg-gradient-to-r from-red-500 to-pink-500 text-white p-4 rounded-lg shadow-lg flex items-center justify-center transition-transform transform hover:scale-105">
+            <i class="fa fa-database text-2xl"></i>
+            <span class="ml-3 text-lg font-semibold">Oracle</span>
+        </div>
+        <div class="bg-gradient-to-r from-orange-500 to-yellow-500 text-white p-4 rounded-lg shadow-lg flex items-center justify-center transition-transform transform hover:scale-105">
+            <i class="fa fa-paint-brush text-2xl"></i>
+            <span class="ml-3 text-lg font-semibold">Graphic Design</span>
+        </div>
+        <div class="bg-gradient-to-r from-green-500 to-teal-500 text-white p-4 rounded-lg shadow-lg flex items-center justify-center transition-transform transform hover:scale-105">
+            <i class="fa fa-megaphone text-2xl"></i>
+            <span class="ml-3 text-lg font-semibold">Digital Marketing</span>
+        </div>
+    </div>
+</section>
+
+
+<footer class="bg-gray-900 text-gray-400 py-8 mt-12">
+  <div class="container mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div>
+              <h3 class="text-gray-300 font-bold mb-4">Job Categories</h3>
+              <ul>
+                  <li><a href="#" class="hover:text-gray-300">Category 1</a></li>
+                  <li><a href="#" class="hover:text-gray-300">Category 2</a></li>
+                  <li><a href="#" class="hover:text-gray-300">Category 3</a></li>
+              </ul>
+          </div>
+          <div>
+              <h3 class="text-gray-300 font-bold mb-4">Employers</h3>
+              <ul>
+                  <li><a href="#" class="hover:text-gray-300">Post a Job</a></li>
+                  <li><a href="#" class="hover:text-gray-300">Employer Dashboard</a></li>
+              </ul>
+          </div>
+          <div>
+              <h3 class="text-gray-300 font-bold mb-4">Job Seekers</h3>
+              <ul>
+                  <li><a href="#" class="hover:text-gray-300">Search Jobs</a></li>
+                  <li><a href="#" class="hover:text-gray-300">Create a Resume</a></li>
+                  <li><a href="#" class="hover:text-gray-300">Career Advice</a></li>
+              </ul>
+          </div>
+          <div>
+              <h3 class="text-gray-300 font-bold mb-4">Company Info</h3>
+              <ul>
+                  <li><a href="#" class="hover:text-gray-300">About Us</a></li>
+                  <li><a href="#" class="hover:text-gray-300">Contact Us</a></li>
+              </ul>
+          </div>
+      </div>
+      <div class="mt-8 border-t border-gray-700 pt-4">
+          <div class="flex justify-between">
+              <div>
+                  <h3 class="text-gray-300 font-bold mb-2">Stay Connected</h3>
+                  <div class="flex space-x-2">
+                      <a href="#" class="text-gray-300 hover:text-gray-300"><i class="fab fa-facebook"></i></a>
+                      <a href="#" class="text-gray-300 hover:text-gray-300"><i class="fab fa-twitter"></i></a>
+                      <a href="#" class="text-gray-300 hover:text-gray-300"><i class="fab fa-linkedin"></i></a>
+                      <a href="#" class="text-gray-300 hover:text-gray-300"><i class="fab fa-instagram"></i></a>
+                  </div>
+              </div>
+              <div class="flex space-x-2">
+                  <a href="#" class="text-gray-300 hover:text-gray-300">Download The App</a>
+                  <a href="#" class="text-gray-300 hover:text-gray-300"><img src="app-store-badge.png" alt="App Store" class="h-6"></a>
+                  <a href="#" class="text-gray-300 hover:text-gray-300"><img src="google-play-badge.png" alt="Google Play" class="h-6"></a>
+              </div>
+          </div>
+      </div>
+      <div class="mt-4 text-center text-sm">
+          © 2024 foundit | All Rights Reserved
+      </div>
+  </div>
+</footer>
+
+</body>

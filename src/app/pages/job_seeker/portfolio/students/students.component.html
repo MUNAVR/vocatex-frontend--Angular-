@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .fade-in {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-900 text-white p-6">
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-semibold">My Portfolio</h1>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-blue-800 text-white py-20 fade-in">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-4">John Doe</h2>
+            <p class="text-xl mb-6">Full Stack Developer</p>
+            <p class="max-w-xl mx-auto">I am a passionate developer with experience in creating scalable web applications. I love coding and solving complex problems.</p>
+        </div>
+    </section>
+
+    <!-- Personal Info -->
+    <section class="py-16 bg-gray-100 fade-in">
+        <div class="container mx-auto text-center">
+            <h3 class="text-3xl font-semibold mb-6">About Me</h3>
+            <p class="max-w-3xl mx-auto">I'm a professional developer with a passion for coding and learning. I have experience working on various web and mobile applications using modern technologies.</p>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="py-16 bg-white fade-in">
+        <div class="container mx-auto">
+            <h3 class="text-3xl font-semibold text-center mb-10">Experience</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-blue-100 p-6 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-bold">Tech Company</h4>
+                    <p class="text-gray-600">Duration: 2020-2023</p>
+                    <p>Position: Software Engineer</p>
+                    <p>Location: Remote</p>
+                </div>
+                <div class="bg-blue-100 p-6 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-bold">Startup Inc.</h4>
+                    <p class="text-gray-600">Duration: 2018-2020</p>
+                    <p>Position: Full Stack Developer</p>
+                    <p>Location: New York</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="py-16 bg-gray-100 fade-in">
+        <div class="container mx-auto">
+            <h3 class="text-3xl font-semibold text-center mb-10">Skills</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-bold">Frontend Development</h4>
+                    <p>HTML, CSS, JavaScript, React</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-bold">Backend Development</h4>
+                    <p>Node.js, Python, Django</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-bold">Other Skills</h4>
+                    <p>Communication, Teamwork, Problem Solving</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="py-16 bg-white fade-in">
+        <div class="container mx-auto">
+            <h3 class="text-3xl font-semibold text-center mb-10">Education</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-blue-100 p-6 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-bold">University of Example</h4>
+                    <p>Bachelor of Science in Computer Science</p>
+                    <p>2015-2019</p>
+                </div>
+                <div class="bg-blue-100 p-6 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-bold">College of Technology</h4>
+                    <p>Diploma in Software Engineering</p>
+                    <p>2013-2015</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="py-16 bg-gray-100 fade-in">
+        <div class="container mx-auto">
+            <h3 class="text-3xl font-semibold text-center mb-10">Projects</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-bold">Portfolio Website</h4>
+                    <p>Description: A personal portfolio website built using HTML, Tailwind CSS, and JavaScript.</p>
+                    <p>Technologies: HTML, CSS, JavaScript</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-bold">E-Commerce Platform</h4>
+                    <p>Description: A full-featured e-commerce platform with user authentication, product management, and payment integration.</p>
+                    <p>Technologies: Django, React</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-16 bg-white fade-in">
+        <div class="container mx-auto text-center">
+            <h3 class="text-3xl font-semibold mb-6">Contact</h3>
+            <p>If you'd like to work together or have any questions, feel free to reach out!</p>
+            <p class="mt-4">Email: johndoeexample.com</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-900 text-white py-6 text-center">
+        <p>&copy; 2024 John Doe. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

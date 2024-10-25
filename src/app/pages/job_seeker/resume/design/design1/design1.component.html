@@ -1,0 +1,101 @@
+<div *ngIf="resumeData" class="w-3/4 max-w-4xl shadow-lg border border-gray-200 p-4 mx-auto">
+    <!-- Personal Info Section -->
+    <div class="header mb-2">
+      <div class="full-name text-2xl font-bold uppercase mb-1">
+        <span class="first-name">{{ resumeData.personal_info[0].first_name }}</span>
+        <span class="last-name font-light">{{ resumeData.personal_info[0].last_name }}</span>
+      </div>
+      <div class="contact-info mb-1">
+        <span class="email font-light text-gray-500">Email:</span>
+        <span class="email-val">john.doegmail.com</span>
+        <span class="separator mx-1 border-l border-gray-500"></span>
+        <span class="phone font-light text-gray-500">Phone:</span>
+        <span class="phone-val">111-222-3333</span>
+      </div>
+      <div class="about mb-2">
+        <span class="position font-bold underline mr-1">{{ resumeData.personal_info[0].position }}</span>
+        <span class="desc block mt-1 text-xs">{{ resumeData.personal_info[0].about }}</span>
+      </div>
+    </div>
+  
+    <!-- Experience Section -->
+    <div class="section mb-2" *ngIf="resumeData.experiences.length > 0">
+      <div class="section__title text-blue-500 font-bold uppercase tracking-wider mb-1">Experience</div>
+      <div class="section__list space-y-2">
+        <div *ngFor="let exp of resumeData.experiences" class="section__list-item flex justify-between">
+          <div class="left w-3/5">
+            <div class="name font-bold">{{ exp.company_name }}</div>
+            <div class="addr text-gray-500 text-xs">{{ exp.place }}</div>
+            <div class="duration text-gray-400 text-xs">{{ exp.duration }}</div>
+          </div>
+          <div class="right text-right w-2/5">
+            <div class="name font-bold">{{ exp.position }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Education Section -->
+    <div class="section mb-2" *ngIf="resumeData.educations.length > 0">
+      <div class="section__title text-blue-500 font-bold uppercase tracking-wider mb-1">Education</div>
+      <div class="section__list space-y-2">
+        <div *ngFor="let edu of resumeData.educations" class="section__list-item flex justify-between">
+          <div class="left w-3/5">
+            <div class="name font-bold">{{ edu.institution_name }}</div>
+            <div class="addr text-gray-500 text-xs">{{ edu.field_of_study }}</div>
+            <div class="duration text-gray-400 text-xs">{{ edu.start_date }} - {{ edu.end_date }}</div>
+          </div>
+          <div class="right text-right w-2/5">
+            <div class="name font-bold">{{ edu.degree }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Projects Section -->
+    <div class="section mb-2" *ngIf="resumeData.projects.length > 0">
+      <div class="section__title text-blue-500 font-bold uppercase tracking-wider mb-1">Projects</div>
+      <div class="section__list space-y-1">
+        <div *ngFor="let proj of resumeData.projects" class="section__list-item">
+          <div class="name font-bold">{{ proj.project_name }}</div>
+          <div class="text text-xs">
+            {{ proj.description }}. <a href="#" class="text-blue-600 underline">link</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Skills Section -->
+    <div class="section mb-2" *ngIf="resumeData.skills.length > 0">
+      <div class="section__title text-blue-500 font-bold uppercase tracking-wider mb-1">Skills</div>
+      <div class="skills__list space-y-1">
+        <div *ngFor="let skill of resumeData.skills" class="skills__item flex justify-between">
+          <div class="name font-bold">{{ skill.title }}</div>
+          <div class="right text-xs">
+            <span>{{ skill.soft_skill }}</span> | 
+            <span>{{ skill.communication_skill }}</span> | 
+            <span>{{ skill.other_skills }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Address Section -->
+    <div class="section mb-2" *ngIf="resumeData.addresses.length > 0">
+      <div class="section__title text-blue-500 font-bold uppercase tracking-wider mb-1">Address</div>
+      <div *ngFor="let addr of resumeData.addresses" class="section__list-item">
+        <div class="text text-xs">
+          {{ addr.street }}, {{ addr.city }}, {{ addr.state }}, {{ addr.postal_code }}, {{ addr.country }}
+        </div>
+      </div>
+    </div>
+  
+    <!-- Interests Section -->
+    <div class="section">
+      <div class="section__title text-blue-500 font-bold uppercase tracking-wider mb-1">Interests</div>
+      <div class="section__list">
+        <div class="section__list-item">Football, programming</div>
+      </div>
+    </div>
+  </div>
+  

@@ -22,15 +22,18 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
+                
                 "glob": "**/*",
                 "input": "public"
               }
             ],
             "styles": [
               "src/styles.css"
+         
             ],
             "scripts": [],
             "server": "src/main.server.ts",
+
             "prerender": true,
             "ssr": {
               "entry": "server.ts"
@@ -90,6 +93,7 @@
               }
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/magenta-violet.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -97,5 +101,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "bd62e147-631d-46f5-a390-8b70a56de961"
   }
 }

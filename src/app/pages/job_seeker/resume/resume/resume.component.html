@@ -1,0 +1,60 @@
+
+<header class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+    <div>
+      <a routerLink="/" class="text-3xl font-bold text-purple-900">Vocatex</a>
+    </div>
+
+    
+    <nav class="flex space-x-6">
+      <a href=" " class="text-black hover:text-purple-700 font-semibold">Home</a>
+      <a routerLink="/job_seeker_home" class="text-black hover:text-purple-700 font-semibold">Jobs</a>
+      <a href="#" class="text-black hover:text-purple-700 font-semibold flex items-center">
+        Certifications
+        <span class="bg-green-500 text-white text-xs font-bold ml-1 px-2 py-1 rounded-full">New</span>
+      </a>
+    </nav>
+  
+    <div class="flex items-center space-x-4">
+      <button (click)="logout()" class="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-600">
+        Logout
+      </button>
+          
+      <div class="border-l-2 border-gray-300 h-6"></div>
+    
+    </div>
+</header>
+
+    <!-- Main Content -->
+    <div class="min-h-screen flex flex-col lg:flex-row items-center justify-center px-6 lg:px-20 gap-12">
+        <!-- Left Side (Text Content) -->
+        <div class="flex-1 text-left mt-12 lg:mt-0">
+            <!-- Resume Creation Stat -->
+            <div class="text-lg text-gray-700 mb-4">24,485 resumes created today</div>
+            
+            <!-- Title and Subtitle -->
+            <h1 class="text-4xl font-bold text-gray-800 mb-4 max-w-3xl leading-tight">Only 2% of resumes make it past the first round. Be in the top 2%</h1>
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl">Use professional field-tested resume templates that follow the exact 'resume rules' employers look for. Easy to use and done within minutes – try now for free!</p>
+            
+            <!-- Create Resume Button -->
+            <a [routerLink]="'/step1'" class="bg-blue-600 text-white font-medium py-3 px-6 rounded-md shadow hover:bg-blue-500 transition">
+                Add Your Details
+            </a>
+            <br><br>
+            
+            <a [routerLink]="'/create_resume'"
+              class="bg-blue-600 text-white font-medium py-3 px-6 rounded-md shadow hover:bg-blue-500 transition inline-block text-center">
+              Create Resume
+            </a>
+                    
+            
+              
+            
+            <!-- Additional Info Text -->
+            <p class="mt-6 text-gray-700">Use professional templates and export your resume to PDF, DOCX, or TXT.</p>
+        </div>
+    
+        <!-- Right Side (Image) -->
+        <div class="flex-1">
+            <img src="resume-builder-template@2x.png" alt="Resume Preview" class="w-full lg:w-120 rounded-lg shadow-lg">
+        </div>
+    </div>

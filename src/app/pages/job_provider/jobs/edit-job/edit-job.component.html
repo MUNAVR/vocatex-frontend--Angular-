@@ -1,0 +1,189 @@
+<body class="bg-gray-100">
+
+    <!-- Header -->
+    <header class="bg-white text-black py-6 shadow-md">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <div class="logo text-3xl font-bold text-purple-700">Vocatex</div>
+            <nav class="flex space-x-6">
+                <a routerLink="/job_provider_home" class="text-black hover:text-purple-700 font-semibold">Home</a>
+                <a href="#" class="text-black hover:text-purple-700 font-semibold">Jobs</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <span class="text-purple-700 font-medium">Abhishek</span>
+                <img src="https://via.placeholder.com/40" class="rounded-full border-2 border-purple-700" alt="Profile Picture">
+            </div>
+        </div>
+    </header>
+
+    <!-- Form Section -->
+    <div class="flex justify-center items-center min-h-screen mt-8">
+        <div class="bg-white shadow-lg rounded-lg w-full max-w-6xl p-12">
+            <h2 class="text-2xl font-bold mb-8 text-gray-700 text-center">Create New Job</h2>
+            <form [formGroup]="createForm">
+                <!-- Job Title and Job Location -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700">Job Title</label>
+                      <input type="text" formControlName="jobTitle" class="mt-1 block w-full p-3 border"
+                        [ngClass]="{'border-red-500': createForm.get('jobTitle')?.touched && createForm.get('jobTitle')?.invalid}"
+                        placeholder="Enter job title">
+                      <div *ngIf="createForm.get('jobTitle')?.touched && createForm.get('jobTitle')?.invalid" class="text-red-500 text-sm">
+                        Job title is required and must be at least 3 characters long.
+                      </div>
+                    </div>
+                
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700">Job Location</label>
+                      <input type="text" formControlName="jobLocation" class="mt-1 block w-full p-3 border"
+                        [ngClass]="{'border-red-500': createForm.get('jobLocation')?.touched && createForm.get('jobLocation')?.invalid}"
+                        placeholder="Enter job location">
+                      <div *ngIf="createForm.get('jobLocation')?.touched && createForm.get('jobLocation')?.invalid" class="text-red-500 text-sm">
+                        Job location is required.
+                      </div>
+                    </div>
+                  </div>
+    
+                <!-- Salary Range -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Salary Range in LPA</label>
+                        <div class="flex space-x-2">
+                          <input type="number" formControlName="salaryFrom" class="mt-1 block w-full p-3 border"
+                            [ngClass]="{'border-red-500': createForm.get('salaryFrom')?.touched && createForm.get('salaryFrom')?.invalid}"
+                            placeholder="From">
+                          <input type="number" formControlName="salaryTo" class="mt-1 block w-full p-3 border"
+                            [ngClass]="{'border-red-500': createForm.get('salaryTo')?.touched && createForm.get('salaryTo')?.invalid}"
+                            placeholder="To">
+                        </div>
+                        <div *ngIf="createForm.get('salaryFrom')?.touched && createForm.get('salaryFrom')?.invalid" class="text-red-500 text-sm">
+                          Salary is required and must be greater than 0.
+                        </div>
+                        <div *ngIf="createForm.get('salaryTo')?.touched && createForm.get('salaryTo')?.invalid" class="text-red-500 text-sm">
+                          Salary is required and must be greater than 0.
+                        </div>
+                      </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Job Type</label>
+                        <select formControlName="jobType" class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500">
+                            <option>Full Time</option>
+                            <option>Part Time</option>
+                            <option>Internship</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <!-- Job Mode and Experience -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Job Mode</label>
+                        <select formControlName="jobMode" class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500">
+                            <option>Work From Office</option>
+                            <option>Work From Home</option>
+                            <option>Hybrid</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Experience</label>
+                        <select formControlName="experience" class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500">
+                            <option>Fresher</option>
+                            <option>1-2 Years</option>
+                            <option>3-5 Years</option>
+                            <option>5+ Years</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <!-- Description -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700">Skills and Requirements</label>
+                    <textarea rows="3" formControlName="skillsAndRequirements" class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500" placeholder="Describe the job"></textarea>
+                    
+                    <!-- Validation message for Skills and Requirements -->
+                    <div *ngIf="createForm.get('skillsAndRequirements')?.touched && createForm.get('skillsAndRequirements')?.invalid" class="text-red-500 text-sm">
+                        Skills and requirements are required.
+                    </div>
+                </div>
+                
+                <div class="mb-8">
+                    <label class="block text-sm font-medium text-gray-700">Description</label>
+                    <textarea rows="3" formControlName="description" class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500" placeholder="Job requirements"></textarea>
+                    
+                    <!-- Validation message for Description -->
+                    <div *ngIf="createForm.get('description')?.touched && createForm.get('description')?.invalid" class="text-red-500 text-sm">
+                        Description is required.
+                    </div>
+                </div>
+                
+    
+                <!-- Submit Button -->
+                
+                <div class="flex justify-center">
+                    <button 
+                        type="submit" 
+                        (click)="onSubmit()" 
+                        [disabled]="createForm.invalid" 
+                        [class.disabled]="createForm.invalid" 
+                        class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg"
+                    >
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-8 mt-12">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-gray-300 font-bold mb-4">Job Categories</h3>
+                    <ul>
+                        <li><a href="#" class="hover:text-gray-300">Category 1</a></li>
+                        <li><a href="#" class="hover:text-gray-300">Category 2</a></li>
+                        <li><a href="#" class="hover:text-gray-300">Category 3</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-gray-300 font-bold mb-4">Employers</h3>
+                    <ul>
+                        <li><a href="#" class="hover:text-gray-300">Post a Job</a></li>
+                        <li><a href="#" class="hover:text-gray-300">Employer Dashboard</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-gray-300 font-bold mb-4">Job Seekers</h3>
+                    <ul>
+                        <li><a href="#" class="hover:text-gray-300">Search Jobs</a></li>
+                        <li><a href="#" class="hover:text-gray-300">Create a Resume</a></li>
+                        <li><a href="#" class="hover:text-gray-300">Career Advice</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-gray-300 font-bold mb-4">Company Info</h3>
+                    <ul>
+                        <li><a href="#" class="hover:text-gray-300">About Us</a></li>
+                        <li><a href="#" class="hover:text-gray-300">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-gray-700 pt-4">
+                <div class="flex justify-between">
+                    <div>
+                        <h3 class="text-gray-300 font-bold mb-2">Stay Connected</h3>
+                        <div class="flex space-x-2">
+                            <a href="#" class="text-gray-300 hover:text-gray-300"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="text-gray-300 hover:text-gray-300"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-gray-300 hover:text-gray-300"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-sm text-gray-400">&copy; 2024 Vocatex. All Rights Reserved.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+

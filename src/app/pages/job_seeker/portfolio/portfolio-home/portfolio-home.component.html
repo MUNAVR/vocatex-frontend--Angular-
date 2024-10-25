@@ -1,0 +1,50 @@
+<!-- Transparent Navbar -->
+<header class="bg-transparent fixed w-full z-10 py-4 px-6 flex justify-between items-center">
+  <div class="logo text-3xl font-bold text-">
+    Vocatex <!-- Logo text -->
+  </div>
+</header>
+
+<!-- Full-Page Hero Section with Background Image -->
+<section class="bg-cover bg-center bg-no-repeat min-h-screen flex items-center justify-center" style="background-image: url('/6525581.jpg');">
+  <div class="container mx-auto text-center">
+    
+  </div>
+</section>
+
+<!-- Next Section -->
+<section class="bg-gray-100 py-12">
+  <div class="container mx-auto text-center">
+    <h2 class="text-4xl font-bold mb-6">Portfolio Templates Designed to Spotlight Your Best Work</h2>
+    <p class="text-lg mb-4">Choose from over 900 customizable templates to build your free portfolio website and present your work the way it's meant to be seen.</p>
+    <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 mt-4 inline-block rounded-full">Explore Templates →</a>
+  </div>
+</section>
+
+<!-- Portfolio Section -->
+<section class="bg-white py-12">
+  <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <div class="flex flex-col items-center">
+          <img src="/6171785.jpg" alt="Camila Lauren" class="w-full h-64 object-cover rounded-lg shadow-lg">
+          <h2 class="text-2xl font-bold mt-6">Students</h2>
+          
+      </div>
+
+      <div class="flex flex-col items-center">
+        <!-- Make the image clickable -->
+        <a [routerLink]="['/portfolio_dev']">
+            <img src="/web-design-website-coding-concept.jpg" alt="Samuel Obi" 
+                 class="w-full h-64 object-cover rounded-lg shadow-lg hover:opacity-80 transition-opacity duration-300">
+        </a>
+        
+        <h2 class="text-2xl font-bold mt-6">Developers</h2>
+      </div>
+    
+      
+      <div class="flex flex-col items-center">
+          <img src="/smart-businesswoman-with-papers-looking-away.jpg" alt="Elena Garcia" class="w-full h-64 object-cover rounded-lg shadow-lg">
+          <h2 class="text-2xl font-bold mt-6">Professional</h2>
+          
+      </div>
+  </div>
+</section>

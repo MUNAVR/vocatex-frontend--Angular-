@@ -1,0 +1,96 @@
+<div class="max-w-5xl mx-auto mt-10 p-8 bg-white shadow-lg rounded-lg flex">
+
+    <!-- Left Section -->
+    <div class="w-1/3 bg-white p-8">
+        <h2 class="text-2xl font-bold mb-6">Complete Your Profile</h2>
+        <p class="text-lg mb-6">Unlock 500+ Jobs From Top Companies And Receive Direct Calls From HRs</p>
+        <ul class="text-gray-600 space-y-4">
+            <li>✔️ Take 4 Steps</li>
+            <li>✔️ Direct Call From HR</li>
+            <li>✔️ Connect With Top Companies</li>
+        </ul>
+    </div>
+
+    <!-- Right Section -->
+    <div class="w-2/3 bg-green-300 p-8 rounded-lg">
+
+        <!-- Step Progress -->
+        <div class="flex justify-between mb-8">
+            <div class="text-center" id="step-1-label">
+                <div class="w-10 h-10 bg-green-400 text-white rounded-full flex items-center justify-center mx-auto">1</div>
+                <p class="mt-2 text-sm text-black">About Me</p>
+            </div>
+            <div class="text-center" id="step-2-label">
+                <div class="w-10 h-10 bg-green-400 text-white rounded-full flex items-center justify-center mx-auto">2</div>
+                <p class="mt-2 text-sm text-black">Address</p>
+            </div>
+            <div class="text-center" id="step-3-label">
+                <div class="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto">3</div>
+                <p class="mt-2 text-sm text-black">Skills</p>
+            </div>
+            <div class="text-center" id="step-4-label">
+                <div class="w-10 h-10 bg-green-400 text-white rounded-full flex items-center justify-center mx-auto">4</div>
+                <p class="mt-2 text-sm text-black">Projects</p>
+            </div>
+            <div class="text-center" id="step-5-label">
+                <div class="w-10 h-10 bg-green-400 text-white rounded-full flex items-center justify-center mx-auto">5</div>
+                <p class="mt-2 text-sm text-black">Education</p>
+            </div>
+            <div class="text-center" id="step-6-label">
+                <div class="w-10 h-10 bg-green-400 text-white rounded-full flex items-center justify-center mx-auto">6</div>
+                <p class="mt-2 text-sm text-black">Experience</p>
+            </div>
+        </div>
+
+        <!-- Form Section -->
+        <h3 class="text-xl font-bold mb-6">About Me</h3>
+
+        <!-- Form -->
+        <form [formGroup]="skillsForm" (ngSubmit)="onSubmit()">
+
+            <!-- Title -->
+            <div class="mb-4">
+              <label for="title" class="block text-black font-medium mb-2">Title</label>
+              <input type="text" id="title" formControlName="title" class="w-full p-3 border rounded focus:outline-none" placeholder="Enter skill title" required>
+              <div *ngIf="skillsForm.get('title')?.invalid && skillsForm.get('title')?.touched">
+                <small class="text-red-500">Title is required and must be at least 3 characters long.</small>
+              </div>
+            </div>
+          
+            <!-- Soft Skills -->
+            <div class="mb-4">
+              <label for="soft_skill" class="block text-black font-medium mb-2">Soft Skills</label>
+              <input type="text" id="soft_skill" formControlName="soft_skill" class="w-full p-3 border rounded focus:outline-none" placeholder="Enter soft skills" required>
+              <div *ngIf="skillsForm.get('soft_skill')?.invalid && skillsForm.get('soft_skill')?.touched">
+                <small class="text-red-500">Soft skills are required and must be at least 3 characters long.</small>
+              </div>
+            </div>
+          
+            <!-- Communication Skills -->
+            <div class="mb-4">
+              <label for="communication_skill" class="block text-black font-medium mb-2">Communication Skills</label>
+              <input type="text" id="communication_skill" formControlName="communication_skill" class="w-full p-3 border rounded focus:outline-none" placeholder="Enter communication skills" required>
+              <div *ngIf="skillsForm.get('communication_skill')?.invalid && skillsForm.get('communication_skill')?.touched">
+                <small class="text-red-500">Communication skills are required and must be at least 3 characters long.</small>
+              </div>
+            </div>
+          
+            <!-- Other Skills -->
+            <div class="mb-4">
+              <label for="other_skills" class="block text-black font-medium mb-2">Other Skills</label>
+              <input type="text" id="other_skills" formControlName="other_skills" class="w-full p-3 border rounded focus:outline-none" placeholder="Enter other skills" required>
+              <div *ngIf="skillsForm.get('other_skills')?.invalid && skillsForm.get('other_skills')?.touched">
+                <small class="text-red-500">Other skills are required and must be at least 3 characters long.</small>
+              </div>
+            </div>
+          
+            <!-- Submit Button -->
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg" [disabled]="skillsForm.invalid">Submit</button>
+          
+          </form>
+          
+          
+    </div>
+</div>
+
+

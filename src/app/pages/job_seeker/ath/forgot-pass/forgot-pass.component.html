@@ -1,0 +1,52 @@
+<!-- Header Section -->
+<header class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+    <div class="logo text-3xl font-bold text-purple-700">
+        Vocatex
+    </div>
+
+    <div class="flex items-center space-x-4">
+        <a routerLink="/job_index" class="text-purple-700 border border-purple-700 px-4 py-2 rounded-md font-semibold flex items-center hover:bg-purple-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 18.364L15 8.485m-7.071-7.07L4 8.415m7 7.07L18.121 7.07m7.071 0L13.415 4.828"/></svg> Home
+        </a>
+        <a routerLink="/job_seeker_register" class="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-600">Register</a>
+
+        <div class="border-l-2 border-gray-300 h-6"></div>
+    </div>
+</header>
+
+<!-- Main Forgot Password Section -->
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Forgot Password</h2>
+        <p class="text-gray-700 text-center mb-6">Enter your email and we'll send you instructions to reset your password with OTP.</p>
+
+        <form [formGroup]="forgotPasswordForm">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
+                <input formControlName="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter your email">
+                <label class="text-red-500 text-sm mt-1" *ngIf="forgotPasswordForm.controls['email'].errors?.['required'] && forgotPasswordForm.controls['email'].touched">Email is required</label>
+                <label class="text-red-500 text-sm mt-1" *ngIf="forgotPasswordForm.controls['email'].errors?.['email'] && forgotPasswordForm.controls['email'].touched">Enter a valid email</label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mb-4">
+                <button 
+                    (click)="onSubmit()"
+                    type="submit" 
+                    [disabled]="forgotPasswordForm.invalid" 
+                    [class.disabled]="forgotPasswordForm.invalid" 
+                    class="w-full px-4 py-2 bg-purple-600 text-white rounded-md shadow-sm hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50"
+                >
+                    Send Reset OTP
+                </button>
+            </div>
+
+            <!-- Login Link -->
+            <div class="text-center mt-6">
+                <p class="text-sm text-black-600">Remember your password? 
+                    <a routerLink="/job_seeker_login" class="text-purple-700 hover:underline">Login</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>

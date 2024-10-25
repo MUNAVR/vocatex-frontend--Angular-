@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume - Thiago Braga</title>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-white flex justify-center font-sans text-xs"> <!-- Reduced base font size -->
+ 
+
+  <div class="w-3/4 max-w-4xl shadow-lg border border-gray-200 p-6"> <!-- Reduced padding and width -->
+    <div class="grid grid-cols-3 gap-4"> <!-- Reduced gap -->
+      <section class="col-span-2">
+        <h1 class="text-3xl font-bold">{{ resumeData!.personal_info[0].first_name }} {{ resumeData!.personal_info[0].last_name }}</h1> <!-- Reduced heading size -->
+        <div class="mt-2 space-y-1"> <!-- Reduced spacing -->
+          <div class="flex items-center space-x-1"> <!-- Reduced icon spacing -->
+            <i class="fas fa-location-arrow text-blue-600 text-sm"></i> <!-- Reduced icon size -->
+            <span>770 Marçal de Arruda Campos St., Bauru, SP, Brazil, Zip: 17063-060</span>
+          </div>
+          <div class="flex items-center space-x-1">
+            <i class="fas fa-envelope text-blue-600 text-sm"></i>
+            <span>contatothiagobraga.org</span>
+          </div>
+          <div class="flex items-center space-x-1">
+            <i class="fas fa-phone text-blue-600 text-sm"></i>
+            <span>+55 14 99165 5873</span>
+          </div>
+        </div>
+
+        <section class="mt-6"> <!-- Reduced margin -->
+          <h2 class="text-xl font-semibold flex items-center space-x-2">
+            <i class="fas fa-pencil-square-o bg-blue-600 text-white p-1 rounded-full text-sm"></i> <!-- Reduced icon size -->
+            <span>Professional Summary</span>
+          </h2>
+          <div class="mt-3"> <!-- Reduced margin -->
+            <p>{{ resumeData!.personal_info[0].position }}</p>
+            <p>{{ resumeData!.personal_info[0].about }}</p>
+          </div>
+        </section>
+
+        <section class="mt-6"> <!-- Reduced margin -->
+          <h2 class="text-xl font-semibold flex items-center space-x-2">
+            <i class="fas fa-briefcase bg-blue-600 text-white p-1 rounded-full text-sm"></i>
+            <span>Employment History</span>
+          </h2>
+          <div *ngFor="let exp of resumeData!.experiences" class="mt-3">
+            <div class="mb-4">
+              <div class="font-semibold">{{ exp.position }}<span>{{ exp.company_name }}</span></div>
+              <small>Bauru, Sao Paulo</small>
+              <div class="text-blue-600 text-xs mt-1">{{ exp.place }}- {{ exp.duration }}</div>
+              <ul class="list-disc list-inside mt-1"> <!-- Reduced margin -->
+                <li>Design, build or maintain websites using Laravel, Bootstrap, Vue, React...</li>
+                <li>Automate dev, build, and deploy tasks...</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+
+        <section class="mt-6"> <!-- Reduced margin -->
+          <h2 class="text-xl font-semibold flex items-center space-x-2">
+            <i class="fas fa-briefcase bg-blue-600 text-white p-1 rounded-full text-sm"></i>
+            <span>Projects</span>
+          </h2>
+          <div *ngFor="let proj of resumeData!.projects" class="mt-3">
+            <div class="mb-4">
+              <div class="font-semibold">{{ proj.project_name }}<span></span></div>
+              <small>{{ proj.technology_used}}</small>
+              <div class="text-blue-600 text-xs mt-1">{{ proj.description }}</div>
+              <ul class="list-disc list-inside mt-1"> <!-- Reduced margin -->
+                <li>Design, build or maintain websites using Laravel, Bootstrap, Vue, React...</li>
+                <li>Automate dev, build, and deploy tasks...</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </section>
+
+      <aside class="col-span-1">
+        <section class="mb-6">
+          <h2 class="text-xl font-semibold flex items-center space-x-2">
+            <i class="fas fa-align-center bg-blue-600 text-white p-1 rounded-full text-sm"></i>
+            <span>Skills</span>
+          </h2>
+          <div *ngFor="let skill of resumeData!.skills" class="mt-3 space-y-3"> <!-- Reduced spacing -->
+            <div>
+              <p class="font-bold">{{ skill.title }}</p>
+              <small class="text-gray-600">{{ skill.soft_skill }}</small>
+              <div class="bg-gray-200 rounded-full h-2 mt-1">
+                <div class="bg-blue-600 h-2 rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+
+            <div>
+              <p class="font-bold">{{ skill.communication_skill }}</p>
+              <small class="text-gray-600">{{ skill.other_skills }}</small>
+              <div class="bg-gray-200 rounded-full h-2 mt-1">
+                <div class="bg-blue-600 h-2 rounded-full" style="width: 87%"></div>
+              </div>
+            </div>
+            
+            <!-- Continue with other skills similarly -->
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold flex items-center space-x-2">
+            <i class="fas fa-globe bg-blue-600 text-white p-1 rounded-full text-sm"></i>
+            <span>Languages</span>
+          </h2>
+          <div class="mt-3 space-y-3">
+            <div>
+              <p class="font-bold">Malayalam</p>
+              <div class="bg-gray-200 rounded-full h-2 mt-1">
+                <div class="bg-blue-600 h-2 rounded-full" style="width: 100%"></div>
+              </div>
+            </div>
+
+            <div>
+              <p class="font-bold">English</p>
+              <div class="bg-gray-200 rounded-full h-2 mt-1">
+                <div class="bg-blue-600 h-2 rounded-full" style="width: 80%"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </div>
+</body>
+
+</html>
