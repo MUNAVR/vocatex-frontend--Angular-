@@ -1,67 +1,72 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+// socket-service.service.ts
 import { Injectable, OnDestroy } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../environment/environment';
 import { io, Socket } from 'socket.io-client';
+import { environment } from '../../../../environment/environment';
 import { ChatMessage } from '../../../models/chat';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketServiceService implements OnDestroy {
-  private socket: Socket | null = null;
+  private socket!: Socket;
 
   constructor(private http: HttpClient) {
-    console.log("constructure is working")
+    this.connectSocket();
+  }
+
+  private connectSocket(): void {
     const token = this.getToken();
-    
-    if (token) {
-      this.socket = io(`${environment.socketUrl}?token=${token}`, {
-        transports: ['websocket']
-      })
-    } else {
-      console.error('Token not found');
-    }
+    this.socket = io(`${environment.socketUrl}/ws`, {
+      auth: { token },
+    });
+
+    this.socket.on('connect', () => {
+      console.log('Socket connected:', this.socket.id);
+    });
+
+    this.socket.on('disconnect', () => {
+      console.log('Socket disconnected');
+    });
   }
 
   ngOnDestroy(): void {
     this.disconnect();
   }
 
-  disconnect(): void {
-    if (this.socket) {
-      this.socket.disconnect();
-      console.log('Socket connection closed');
-    }
-  }
-
-  getToken(): string | null {
+  private getToken(): string | null {
     return localStorage.getItem('access_token');
   }
 
-  getAuthHeaders(): HttpHeaders {
+  private getAuthHeaders(): HttpHeaders {
     const token = this.getToken();
-    let headers = new HttpHeaders().set('Content-Type', 'application/json'); 
-
-    if (token) {
-      headers = headers.set('Authorization', `Bearer ${token}`);
-    }
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    if (token) headers = headers.set('Authorization', `Bearer ${token}`);
     return headers;
   }
 
-  sendMessage(message: ChatMessage): Observable<ChatMessage> {
-    console.log(message.receiver_id);
-    const headers = this.getAuthHeaders();
-    return this.http.post<ChatMessage>(`${environment.apiUrl}/send_messages`, message, { headers });
+  disconnect(): void {
+    if (this.socket) {
+      this.socket.disconnect();
+      console.log('Socket disconnected');
+    }
   }
 
-  getMessages(receiverId: string): Observable<ChatMessage[]> {
-    const headers = this.getAuthHeaders();
-    return this.http.get<ChatMessage[]>(`${environment.apiUrl}/${receiverId}`, { headers });
+  sendMessage(message: ChatMessage): void {
+    if (this.socket) {
+      this.socket.emit('message', message);
+    }
+  }
+
+  getMessages(receiverId: string, sender_id: string): Observable<ChatMessage[]> {
+    return this.http.get<ChatMessage[]>(`${environment.apiUrl}/messages/${receiverId}?sender_id=${sender_id}`, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   onMessageReceived(): Observable<ChatMessage> {
-    return new Observable<ChatMessage>(observer => {
+    return new Observable(observer => {
       if (this.socket) {
         this.socket.on('chat_message', (data: ChatMessage) => {
           observer.next(data);

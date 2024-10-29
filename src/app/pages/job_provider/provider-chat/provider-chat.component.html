@@ -1,20 +1,36 @@
-<div class="chat-container max-w-md mx-auto p-4 border border-gray-300 rounded-lg shadow-lg bg-white">
-    <div class="messages max-h-64 overflow-y-auto mb-4 p-2 border-b border-gray-200">
-      <div *ngFor="let message of messages" class="mb-2">
-        <strong class="text-blue-600"></strong> <span class="text-gray-800">{{ message.content }}</span>
+<!-- provider-chat.component.html -->
+<div class="chat-container max-w-lg mx-auto p-4 bg-gray-100 rounded-lg shadow-lg">
+  <!-- Message List -->
+  <div class="message-list h-96 overflow-y-auto mb-4 p-4 bg-white rounded-lg shadow-inner">
+    <div *ngFor="let message of messages" class="message my-2 flex">
+      <!-- Current User's Message (Align Right) -->
+      <div 
+        *ngIf="message.receiver_id === receiverId" 
+        class="ml-auto p-2 rounded-lg max-w-xs bg-blue-500 text-white shadow">
+        <p class="text-sm font-semibold">You:</p>
+        <p>{{ message.content }}</p>
+      </div>
+      
+      <!-- Receiver's Message (Align Left) -->
+      <div 
+        *ngIf="message.receiver_id !== receiverId" 
+        class="mr-auto p-2 rounded-lg max-w-xs bg-gray-300 text-gray-800 shadow">
+        <p class="text-sm font-semibold">Other:</p>
+        <p>{{ message.content }}</p>
       </div>
     </div>
-    <div class="flex">
-      <input 
-        [(ngModel)]="newMessage" 
-        placeholder="Type your message..." 
-        class="flex-1 border border-gray-300 rounded-md p-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500" 
-      />
-      <button 
-        (click)="sendMessage()" 
-        class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-600 transition duration-200"
-      >
-        Send
-      </button>
-    </div>
+  </div>
+
+  <!-- Input and Send Button -->
+  <div class="message-input flex items-center">
+    <input 
+      [(ngModel)]="newMessage" 
+      placeholder="Type a message..." 
+      class="flex-1 p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    <button 
+      (click)="sendMessage()" 
+      class="px-4 py-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      Send
+    </button>
+  </div>
 </div>

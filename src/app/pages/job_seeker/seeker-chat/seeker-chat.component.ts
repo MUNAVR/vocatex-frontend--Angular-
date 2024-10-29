@@ -12,35 +12,30 @@ import { ChatMessage } from '../../../models/chat';
   styleUrl: './seeker-chat.component.css'
 })
 export class SeekerChatComponent implements OnInit {
-  constructor(private chatService: SocketServiceService){}
-
+  @Input() receiverId: string = '';
   messages: ChatMessage[] = [];
   newMessage: string = '';
-  userId: string = ''
-  receiverId: string = '';
+
+  constructor(private chatService: SocketServiceService) {}
 
   ngOnInit(): void {
-    this.loadMessages();
+    this.chatService.getMessages(this.receiverId).subscribe((fetchedMessages) => {
+      this.messages = fetchedMessages;
+    });
+
     this.chatService.onMessageReceived().subscribe((message: ChatMessage) => {
       this.messages.push(message);
     });
   }
 
-  loadMessages() {
-    this.chatService.getMessages(this.userId, this.receiverId).subscribe(messages => {
-      this.messages = messages;
-    });
-  }
-
-  sendMessage() {
+  sendMessage(): void {
     const message: ChatMessage = {
       content: this.newMessage,
-      receiver_id: this.receiverId
+      receiver_id: this.receiverId,
     };
-
-    this.chatService.sendMessage(message).subscribe(() => {
-      this.newMessage = '';
-    });
+    this.chatService.sendMessage(message);
+    this.messages.push(message); 
+    this.newMessage = ''; 
   }
 
 }

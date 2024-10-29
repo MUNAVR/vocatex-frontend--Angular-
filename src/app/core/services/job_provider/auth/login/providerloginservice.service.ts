@@ -9,6 +9,7 @@ interface AuthResponse {
   access_token: string;
   refresh_token: string;
   role: "job_seeker";
+  user_id:string;
 }
 
 @Injectable({
@@ -24,15 +25,18 @@ export class ProvderLoginService {
   loginService(loginObj: any): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(providerapiUrl.AuthServiceApiLogin, loginObj).pipe(
       tap((res: AuthResponse) => {
+        console.log(res)
         this.setSession(res);
       })
     );
   }
 
   private setSession(authResult: AuthResponse): void {
+    console.log(authResult.user_id)
     localStorage.setItem('access_token', authResult.access_token);
     localStorage.setItem('refresh_token', authResult.refresh_token);
-    localStorage.setItem('user_role', authResult.role); 
+    localStorage.setItem('user_role', authResult.role);
+    localStorage.setItem('user_id',authResult.user_id) 
     this.tokenSubject.next(authResult.access_token);
   }
 
