@@ -8,11 +8,12 @@ import { HomeService } from '../../../../core/services/job_provider/home/home.se
 import { JobDetails } from '../../../../models/jobDetails';
 import { EditJobComponent } from '../../jobs/edit-job/edit-job.component';
 import { ModalService } from '../../../../shared/model/modal.service';
+import { SideBarComponent } from '../../side-bar/side-bar.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ProviderHomeComponent,CreateJobComponent,CommonModule,RouterLink,EditJobComponent],
+  imports: [ProviderHomeComponent,CreateJobComponent,CommonModule,RouterLink,EditJobComponent,SideBarComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

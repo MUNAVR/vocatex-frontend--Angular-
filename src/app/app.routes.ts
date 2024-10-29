@@ -26,6 +26,8 @@ export const routes: Routes = [
 
     {path:'applications',loadComponent:()=> import('./pages/job_provider/applications/applications.component').then((c)=>c.ApplicationsComponent),canActivate: [ProviderAuthGuard] },
 
+    {path:'accepted_applications',loadComponent:()=> import('./pages/job_provider/accepted-application/accepted-application.component').then((c)=>c.AcceptedApplicationComponent),canActivate: [ProviderAuthGuard] },
+
 
 
 
@@ -54,8 +56,10 @@ export const routes: Routes = [
     {path:'job_seeker_home',loadComponent:()=> import('./pages/job_seeker/home/home/home.component').then((c)=>c.SeekerHomeComponent),canActivate: [SeekerAuthGuard ] },
 
     {path:'job_apply/:job_id',loadComponent:()=> import('./pages/job_seeker/job-apply/job-apply.component').then((c)=>c.JobApplyComponent),canActivate: [SeekerAuthGuard ] },
+
     {path:'applied_jobs',loadComponent:()=> import('./pages/job_seeker/applied-jobs/applied-jobs.component').then((c)=>c.AppliedJobsComponent),canActivate: [SeekerAuthGuard ] },
 
+    {path:'applied_accepted_jobs',loadComponent:()=> import('./pages/job_seeker/accepted-applied-jobs/accepted-applied-jobs.component').then((c)=>c.AcceptedAppliedJobsComponent),canActivate: [SeekerAuthGuard ] },
 
 
 

@@ -1,0 +1,60 @@
+<header class="bg-white text-black py-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center px-4">
+        <!-- Logo -->
+        <a routerLink="/" class="text-3xl font-bold text-purple-900">Vocatex</a>
+
+        <!-- Navigation Links -->
+        <nav class="flex space-x-6">
+            <a routerLink="/job_provider_landing" class="text-black hover:text-purple-700 font-semibold">Home</a>
+            <a routerLink="/job_provider_home" class="text-black hover:text-purple-700 font-semibold">Jobs</a>
+        </nav>
+
+        <!-- User Info -->
+        <div class="flex items-center space-x-4">
+            <span class="text-purple-700 font-medium">Abhishek</span>
+
+            <!-- Logout Button -->
+            <button class="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-600">
+                Logout
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Sidebar and Main Content Layout -->
+<div class="flex">
+    <app-side-bar></app-side-bar>
+
+    <div class="flex-1 p-8">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">All Applications</h1>
+
+        <!-- Applications Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div *ngFor="let application of acceptedApplications" class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-lg font-semibold text-gray-800">Candidate Name: {{ application.applicant_name }}</h2>
+                <p class="text-sm text-gray-600"><strong>Email:</strong> {{ application.applicant_email }}</p>
+                <p class="text-sm text-gray-600"><strong>Position:</strong> {{ application.job_title }}</p>
+                <p class="text-sm text-gray-600"><strong>Status:</strong>{{ application.status }}</p>
+                <p class="text-sm text-gray-600"><strong>Applied on:</strong>{{ application.applied_at | date:'short' }}</p>
+
+                <!-- Accept/Reject Buttons -->
+                <div class="flex justify-end space-x-2 mt-4">
+                    <button (click)="openMessageModal(application)" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">Message</button>
+                    <button class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">Interview</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chat Modal -->
+<div *ngIf="showMessageModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 w-96 shadow-lg">
+      <div class="flex justify-between items-center border-b pb-3 mb-4">
+        <h2 class="text-lg font-bold text-gray-800">Chat with {{ selectedApplicant?.applicant_name }}</h2>
+        <button (click)="closeMessageModal()" class="text-gray-500 hover:text-gray-800">X</button>
+      </div>
+      <app-provider-chat [receiverId]="selectedApplicant?.applicant_id"></app-provider-chat>
+    </div>
+</div>
+  

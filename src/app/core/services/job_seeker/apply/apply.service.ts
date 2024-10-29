@@ -60,6 +60,11 @@ export class ApplyService {
     return this.http.get<AppliedJobResponse[]>(apiUrl.applied_jobs,{ headers });
   }
 
+  getAcceptedAppliedJobsForUser(): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<AppliedJobResponse[]>(apiUrl.accepted_applied_jobs,{headers});
+  }
+
 
   
   

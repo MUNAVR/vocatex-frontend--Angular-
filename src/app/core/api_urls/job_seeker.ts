@@ -39,6 +39,7 @@ export const apiUrl={
     job_comapany_details:'http://127.0.0.1:8000/api/V1/apply_jobs/get_job_details/',
     create_application:'http://127.0.0.1:8000/api/V1/apply_jobs/create/application/',
     applied_jobs:'http://127.0.0.1:8000/api/V1/apply_jobs/get_applied_jobs/',
+    accepted_applied_jobs:'http://127.0.0.1:8000/api/V1/apply_jobs/accepted_applied_jobs/',
     
 
 
