@@ -55,6 +55,7 @@
     
     
     
+    
 
     <!-- Right Side Content (Accepted Jobs Cards) -->
     <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -68,9 +69,37 @@
 
             <!-- Action Buttons -->
             <div class="flex justify-end space-x-2 mt-4">
-                <button (click)="toggleMessageArea()" class="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 transition">View Details</button>
-                <button class="bg-green-500 text-white py-2 px-4 rounded-full hover:bg-green-600 transition">Message</button>
+                <button (click)="openMessageModal(job)" class="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 transition">Message</button>
+                <button (click)="openinterviewModal(job)"  class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">Interview</button>
             </div>
         </div>
     </div>
 </div>
+
+
+<div *ngIf="showMessageModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 w-96 shadow-lg">
+      <div class="flex justify-between items-center border-b pb-3 mb-4">
+        <h2 class="text-lg font-bold text-gray-800">Chat with {{ selectedApplicant?.company_name}}</h2>
+        <button (click)="closeMessageModal()" class="text-gray-500 hover:text-gray-800">X</button>
+      </div>
+      <app-seeker-chat [receiverId]="selectedApplicant?.provider_id"></app-seeker-chat>
+    </div>
+</div>
+  
+
+<div *ngIf="showInterviewModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-8 w-full max-w-5xl shadow-lg">
+        <!-- Modal Header -->
+        <div class="flex justify-between items-center border-b pb-4 mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Interview with {{ selectedApplicant?.applicant_name }}</h2>
+            <button (click)="closeinterviwModal()" class="text-gray-500 hover:text-gray-800 text-xl font-semibold">X</button>
+        </div>
+        
+        <!-- Embedded Interview Component -->
+        <div class="flex justify-center">
+            <app-interview-seeker [receiverId]="selectedApplicant?.provider_id"></app-interview-seeker>
+        </div>
+    </div>
+</div>
+

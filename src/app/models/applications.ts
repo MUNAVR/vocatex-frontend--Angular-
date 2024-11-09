@@ -16,6 +16,7 @@ export interface AppliedJobResponse {
     application_id: string; // UUIDs are represented as strings in TypeScript
     job_id: string;
     job_title: string;
+    provider_id:UUID;
     company_name: string;
     status: string;
     applied_at: Date;

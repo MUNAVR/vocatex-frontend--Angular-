@@ -9,6 +9,8 @@ interface AuthResponse {
   access_token: string;
   refresh_token: string;
   role: "job_seeker";
+  user_id:string
+  user_name:string
 }
 
 @Injectable({
@@ -36,13 +38,16 @@ export class LoginserviceService {
   private setSession(authResult: AuthResponse): void {
     localStorage.setItem('access_token', authResult.access_token);
     localStorage.setItem('refresh_token', authResult.refresh_token);
-    localStorage.setItem('user_role', authResult.role); 
+    localStorage.setItem('user_role', authResult.role);
+    localStorage.setItem('user_id',authResult.user_id)
+    localStorage.setItem('user_name',authResult.user_name)   
     this.tokenSubject.next(authResult.access_token);
   }
 
   getToken(): string | null {
     return localStorage.getItem('access_token');
   }
+
 
   getRole(): string | null {
     return localStorage.getItem('user_role'); 

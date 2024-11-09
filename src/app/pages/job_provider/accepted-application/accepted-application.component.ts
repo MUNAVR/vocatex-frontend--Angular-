@@ -5,17 +5,19 @@ import { FormsModule } from '@angular/forms';
 import { ApplicationService } from '../../../core/services/job_provider/applications/application.service';
 import { applications } from '../../../models/applications';
 import { ProviderChatComponent } from '../provider-chat/provider-chat.component';
+import { InterviewComponent } from '../interview/interview.component';
 
 @Component({
   selector: 'app-accepted-application',
   standalone: true,
-  imports: [SideBarComponent,CommonModule,FormsModule,ProviderChatComponent],
+  imports: [SideBarComponent,CommonModule,FormsModule,ProviderChatComponent,InterviewComponent],
   templateUrl: './accepted-application.component.html',
   styleUrl: './accepted-application.component.css'
 })
 export class AcceptedApplicationComponent {
   acceptedApplications: applications[] = [];
   showMessageModal = false;
+  showInterviewModal = false;
   selectedApplicant: any;
 
   constructor(
@@ -42,6 +44,18 @@ export class AcceptedApplicationComponent {
 
   closeMessageModal() {
     this.showMessageModal = false; // Close the modal
+    this.selectedApplicant = null; // Reset selected applicant
+  }
+
+
+
+  openinterviewModal(application: any) {
+    this.selectedApplicant = application; // Set selected applicant
+    this.showInterviewModal = true; // Show the modal
+  }
+
+  closeinterviwModal() {
+    this.showInterviewModal = false; // Close the modal
     this.selectedApplicant = null; // Reset selected applicant
   }
 

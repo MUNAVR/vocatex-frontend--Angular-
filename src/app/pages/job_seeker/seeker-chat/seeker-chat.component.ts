@@ -1,41 +1,84 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SocketServiceService } from '../../../core/services/socket/socket-service.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChatMessage } from '../../../models/chat';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-seeker-chat',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './seeker-chat.component.html',
-  styleUrl: './seeker-chat.component.css'
+  styleUrls: ['./seeker-chat.component.css']
 })
 export class SeekerChatComponent implements OnInit {
   @Input() receiverId: string = '';
   messages: ChatMessage[] = [];
   newMessage: string = '';
+  user_id: string | null = null;
+  private messageSubscription!: Subscription;
 
   constructor(private chatService: SocketServiceService) {}
 
-  ngOnInit(): void {
-    this.chatService.getMessages(this.receiverId).subscribe((fetchedMessages) => {
-      this.messages = fetchedMessages;
-    });
+  private getUserId(): string | null {
+    return localStorage.getItem('user_id');
+  }
 
-    this.chatService.onMessageReceived().subscribe((message: ChatMessage) => {
-      this.messages.push(message);
-    });
+  ngOnInit(): void {
+    this.user_id = this.getUserId();
+    if (this.user_id) {
+      this.chatService.getMessages(this.receiverId, this.user_id).subscribe(
+        (fetchedMessages) => {
+          this.messages = fetchedMessages;
+        },
+        (error) => {
+          console.error('Error fetching messages:', error);
+        }
+      );
+  
+      // Subscribe to onMessageReceived and handle incoming messages in real-time
+      this.messageSubscription = this.chatService.onMessageReceived().subscribe(
+        (message) => {
+            console.log(message)
+            // Display the message if it's either sent by or received by the current user
+            if (message.receiver_id === this.user_id && message.sender_id === this.receiverId) {
+                this.messages.push(message);
+            }
+        },
+        (error) => {
+            console.error("Error receiving messages:", error);
+        }
+    );    
+    } else {
+      console.error('User ID not found');
+    }
+  }
+  
+
+  ngOnDestroy(): void {
+    if (this.messageSubscription) {
+      this.messageSubscription.unsubscribe();
+    }
   }
 
   sendMessage(): void {
+    if (!this.user_id) {
+      console.error('User ID not found');
+      return;
+    }
+
     const message: ChatMessage = {
+      sender_id: this.user_id,
       content: this.newMessage,
       receiver_id: this.receiverId,
     };
-    this.chatService.sendMessage(message);
-    this.messages.push(message); 
-    this.newMessage = ''; 
-  }
 
+    console.log('Sending message:', message);
+    this.chatService.sendMessage(message);
+
+    // Add the sent message to the UI immediately without waiting for a response
+    this.messages.push(message);
+    this.newMessage = ''; // Clear the input
+  }
 }

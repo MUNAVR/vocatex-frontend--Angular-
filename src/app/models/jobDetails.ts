@@ -10,7 +10,7 @@ export interface JobDetails {
     experience: string;              
     skills_and_requirements: string; 
     created_at: string;              
-    updated_at: string;              
+    updated_at: string;             
 }
 
 export interface user_basic_details{

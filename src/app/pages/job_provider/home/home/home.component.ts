@@ -20,6 +20,7 @@ import { SideBarComponent } from '../../side-bar/side-bar.component';
 export class HomeComponent {
 
   jobs: JobDetails[] = [];
+  username:string = ""
 
   constructor(private loginService:ProvderLoginService,
     private router:Router, 
@@ -29,7 +30,8 @@ export class HomeComponent {
   
   ){
 
-      this.loadJobs()
+      this.loadJobs(),
+      this.getUsername()
     }
 
   logout(): void {
@@ -50,6 +52,14 @@ export class HomeComponent {
     });
   }
 
+  getUsername() {
+    this.username = localStorage.getItem('user_name') || '';
+    if (this.username) {
+      console.log(`Username: ${this.username}`);
+    } else {
+      console.log('No username found in local storage.');
+    }
+  }
 
 
 

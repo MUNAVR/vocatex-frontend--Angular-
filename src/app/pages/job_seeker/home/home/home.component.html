@@ -21,7 +21,6 @@
             <div class="flex items-center space-x-4">
                 <!-- Display username dynamically -->
                 <span class="text-purple-700 font-medium">{{ username }}</span>
-                <img src="https://via.placeholder.com/40" class="rounded-full border-2 border-purple-700" alt="Profile Picture">
     
                 <!-- Logout Button -->
                 <button (click)="logout()" class="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-600">
@@ -38,97 +37,115 @@
         <!-- Filters Section -->
         <aside class="w-1/4 p-4 bg-white shadow-lg rounded-lg">
             <h2 class="text-lg font-semibold mb-4 text-gray-900">Filters</h2>
-            
+        
             <!-- Date Posted -->
             <div class="mb-6">
                 <h3 class="text-sm font-medium mb-2">Date Posted</h3>
                 <ul>
                     <li>
-                        <input type="radio" id="all" name="date" checked>
+                        <input type="radio" id="all" name="date" [(ngModel)]="selectedDate" value="all"  checked>
                         <label for="all" class="ml-2">All</label>
                     </li>
                     <li>
-                        <input type="radio" id="last7" name="date">
+                        <input type="radio" id="last7" name="date" [(ngModel)]="selectedDate" value="last7" >
                         <label for="last7" class="ml-2">Last 7 Days</label>
                     </li>
                     <li>
-                        <input type="radio" id="last30" name="date">
+                        <input type="radio" id="last30" name="date" [(ngModel)]="selectedDate" value="last30" >
                         <label for="last30" class="ml-2">Last 30 Days</label>
                     </li>
                 </ul>
             </div>
-            
-            <!-- Salary Range -->
-            <div class="mb-6">
-                <h3 class="text-sm font-medium mb-2">Salary</h3>
-                <input type="range" min="10000" max="100000" class="w-full">
-                <div class="flex justify-between text-sm">
-                    <span>10,000</span>
-                    <span>1 Lakh</span>
-                </div>
-            </div>
-
+        
+            <!-- Work Mode -->
             <!-- Work Mode -->
             <div class="mb-6">
                 <h3 class="text-sm font-medium mb-2">Work Mode</h3>
                 <ul>
-                    <li>
-                        <input type="radio" id="wfh" name="work_mode" checked>
-                        <label for="wfh" class="ml-2">Work From Home</label>
-                    </li>
-                    <li>
-                        <input type="radio" id="wfo" name="work_mode">
-                        <label for="wfo" class="ml-2">Work From Office</label>
-                    </li>
+                <li>
+                    <input type="radio" id="wfh" name="work_mode" [(ngModel)]="selectedWorkMode" value="Work From Home">
+                    <label for="wfh" class="ml-2">Work From Home</label>
+                </li>
+                <li>
+                    <input type="radio" id="wfo" name="work_mode" [(ngModel)]="selectedWorkMode" value="Work From Office">
+                    <label for="wfo" class="ml-2">Work From Office</label>
+                </li>
+                <li>
+                    <input type="radio" id="hybrid" name="work_mode" [(ngModel)]="selectedWorkMode" value="Hybrid">
+                    <label for="hybrid" class="ml-2">Hybrid</label>
+                </li>
                 </ul>
             </div>
-
+            
             <!-- Work Type -->
             <div>
                 <h3 class="text-sm font-medium mb-2">Work Type</h3>
                 <ul>
-                    <li>
-                        <input type="radio" id="fulltime" name="work_type" checked>
-                        <label for="fulltime" class="ml-2">Full Time</label>
-                    </li>
-                    <li>
-                        <input type="radio" id="parttime" name="work_type">
-                        <label for="parttime" class="ml-2">Part Time</label>
-                    </li>
+                <li>
+                    <input type="radio" id="fulltime" name="work_type" [(ngModel)]="selectedWorkType" value="Full Time">
+                    <label for="fulltime" class="ml-2">Full Time</label>
+                </li>
+                <li>
+                    <input type="radio" id="parttime" name="work_type" [(ngModel)]="selectedWorkType" value="Part Time">
+                    <label for="parttime" class="ml-2">Part Time</label>
+                </li>
+                <li>
+                    <input type="radio" id="internship" name="work_type" [(ngModel)]="selectedWorkType" value="Internship">
+                    <label for="internship" class="ml-2">Internship</label>
+                </li>
                 </ul>
             </div>
+            <button (click)="applyFilters()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Apply Filters</button>
         </aside>
+
 
         <!-- Job Search and Listings Section -->
         <div class="w-3/4 ml-6">
             <!-- Job Search Area -->
-            <div class="flex space-x-4 mb-6">
-                <input type="text" placeholder="Search Job By Skill" class="flex-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-violet-600">
-                <input type="text" placeholder="Search Job By Location" class="flex-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-violet-600">
-                <button class="bg-violet-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-violet-700">Search Job</button>
-            </div>
+            <form [formGroup]="searchForm" (ngSubmit)="searchJobs()" class="flex space-x-4 mb-6">
+                <input formControlName="skill" type="text" placeholder="Search Job By Skill" 
+                    class="flex-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-violet-600" 
+                    [ngClass]="{'border-red-500': searchForm.get('skill')?.invalid && searchForm.get('skill')?.touched}" />
+                    
+                <div *ngIf="searchForm.get('skill')?.invalid && searchForm.get('skill')?.touched" class="text-red-500">
+                    <small *ngIf="searchForm.get('skill')?.errors?.['required']">Skill is required.</small>
+                </div>
+            
+                <input formControlName="location" type="text" placeholder="Search Job By Location" 
+                    class="flex-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-violet-600" 
+                    [ngClass]="{'border-red-500': searchForm.get('location')?.invalid && searchForm.get('location')?.touched}" />
+                    
+                <div *ngIf="searchForm.get('location')?.invalid && searchForm.get('location')?.touched" class="text-red-500">
+                    <small *ngIf="searchForm.get('location')?.errors?.['required']">Location is required.</small>
+                </div>
+            
+                <button type="submit" 
+                    class="bg-violet-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-violet-700" 
+                    [disabled]="searchForm.invalid">
+                    Search Job
+                </button>
+            </form>
+            
 
             <!-- Job Listing Cards -->
             <div class="space-y-6">
-                <!-- Job 1 -->
-                <div *ngFor="let job of jobs">
+                <div *ngFor="let job of filteredJobs">
                     <div class="bg-white shadow-lg rounded-lg p-6 flex items-center justify-between mb-4">
-                      <div>
-                        <h3 class="text-xl font-semibold text-gray-900">{{ job.title }}</h3>
-                        <p class="text-gray-500">{{ job.job_location }}</p>
-                        <p class="text-gray-700 mt-2">
-                          <span class="font-bold">₹{{ job.salary_from }}LPA - ₹{{ job.salary_to }}LAP</span>
-                        </p>
-                        <div class="mt-4 space-x-2">
-                          <span class="px-3 py-1 bg-violet-200 text-violet-700 rounded-full text-sm">{{ job.job_type }}</span>
-                          <span class="px-3 py-1 bg-blue-200 text-blue-700 rounded-full text-sm">{{ job.experience }}</span>
-                          <span class="px-3 py-1 bg-green-200 text-green-700 rounded-full text-sm">{{ job.job_mode }}</span>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900">{{ job.title }}</h3>
+                            <p class="text-gray-500">{{ job.job_location }}</p>
+                            <p class="text-gray-700 mt-2">
+                                <span class="font-bold">₹{{ job.salary_from }}LPA - ₹{{ job.salary_to }}LAP</span>
+                            </p>
+                            <div class="mt-4 space-x-2">
+                                <span class="px-3 py-1 bg-violet-200 text-violet-700 rounded-full text-sm">{{ job.job_type }}</span>
+                                <span class="px-3 py-1 bg-blue-200 text-blue-700 rounded-full text-sm">{{ job.experience }}</span>
+                                <span class="px-3 py-1 bg-green-200 text-green-700 rounded-full text-sm">{{ job.job_mode }}</span>
+                            </div>
                         </div>
-                      </div>
-                      <a [routerLink]="['/job_apply', job.job_id]" class="bg-orange-500 text-white py-2 px-6 rounded-lg hover:bg-orange-600">Apply Now</a>
+                        <a [routerLink]="['/job_apply', job.job_id]" class="bg-orange-500 text-white py-2 px-6 rounded-lg hover:bg-orange-600">Apply Now</a>
                     </div>
-                  </div>
-                  
+                </div>
             </div>
         </div>
     </div>
@@ -190,6 +207,8 @@
         </div>
     </div>
 </footer>
+
+<app-search-result-modal [jobs]="jobs" [isOpen]="isModalOpen"></app-search-result-modal>
   
 
 

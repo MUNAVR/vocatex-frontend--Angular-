@@ -1,79 +1,80 @@
-// socket-service.service.ts
 import { Injectable, OnDestroy } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { io, Socket } from 'socket.io-client';
-import { environment } from '../../../../environment/environment';
+import { HttpClient } from '@angular/common/http';
+import { Observable, ReplaySubject } from 'rxjs';
 import { ChatMessage } from '../../../models/chat';
+import { shareReplay } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SocketServiceService implements OnDestroy {
-  private socket!: Socket;
+  private websocket!: WebSocket;
+  private messageSubject = new ReplaySubject<any>(10);// Replay the latest message
 
   constructor(private http: HttpClient) {
-    this.connectSocket();
+    this.connectWebSocket();
   }
 
-  private connectSocket(): void {
-    const token = this.getToken();
-    this.socket = io(`${environment.socketUrl}/ws`, {
-      auth: { token },
-    });
+  private connectWebSocket(): void {
+    const user_id = this.getUserId();
+    if (!user_id) {
+      console.error('User ID not found');
+      return;
+    }
 
-    this.socket.on('connect', () => {
-      console.log('Socket connected:', this.socket.id);
-    });
+    this.websocket = new WebSocket(`ws://localhost:8000/ws/chat/${user_id}`);
 
-    this.socket.on('disconnect', () => {
-      console.log('Socket disconnected');
-    });
+    this.websocket.onopen = () => {
+      console.log('WebSocket connected');
+    };
+
+    this.websocket.onclose = () => {
+      console.log('WebSocket disconnected, attempting to reconnect...');
+      setTimeout(() => this.connectWebSocket(), 3000); // Reconnect after 5 seconds
+    };
+
+    this.websocket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    this.websocket.onmessage = (event) => {
+      try {
+        console.log("Message received from WebSocket:", event.data);
+        const message = JSON.parse(event.data);
+        this.messageSubject.next(message);
+      } catch (error) {
+        console.error('Error parsing message:', error);
+      }
+    };
   }
 
   ngOnDestroy(): void {
     this.disconnect();
   }
 
-  private getToken(): string | null {
-    return localStorage.getItem('access_token');
-  }
-
-  private getAuthHeaders(): HttpHeaders {
-    const token = this.getToken();
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    if (token) headers = headers.set('Authorization', `Bearer ${token}`);
-    return headers;
+  private getUserId(): string | null {
+    return localStorage.getItem('user_id');
   }
 
   disconnect(): void {
-    if (this.socket) {
-      this.socket.disconnect();
-      console.log('Socket disconnected');
+    if (this.websocket) {
+      this.websocket.close();
     }
   }
 
   sendMessage(message: ChatMessage): void {
-    if (this.socket) {
-      this.socket.emit('message', message);
+    if (this.websocket && this.websocket.readyState === WebSocket.OPEN) {
+      this.websocket.send(JSON.stringify(message));
+    } else {
+      console.error('WebSocket is not open. Message not sent.');
     }
   }
 
-  getMessages(receiverId: string, sender_id: string): Observable<ChatMessage[]> {
-    return this.http.get<ChatMessage[]>(`${environment.apiUrl}/messages/${receiverId}?sender_id=${sender_id}`, {
-      headers: this.getAuthHeaders()
-    });
+  getMessages(receiverId: string, senderId: string): Observable<ChatMessage[]> {
+    return this.http.get<ChatMessage[]>(`http://localhost:8000/api/V1/messages/${receiverId}?sender_id=${senderId}`);
   }
 
-  onMessageReceived(): Observable<ChatMessage> {
-    return new Observable(observer => {
-      if (this.socket) {
-        this.socket.on('chat_message', (data: ChatMessage) => {
-          observer.next(data);
-        });
-      } else {
-        console.error('Socket connection not initialized');
-      }
-    });
+  onMessageReceived(): Observable<any> {
+    return this.messageSubject.asObservable().pipe(shareReplay(1)); // Replay the last message
   }
 }

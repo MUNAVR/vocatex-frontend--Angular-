@@ -8,6 +8,7 @@ import { applications } from '../../../models/applications';
 import { AcceptButtonComponent } from '../accept-button/accept-button.component';
 import { RejectButtonComponent } from '../reject-button/reject-button.component';
 import { ModalService } from '../../../shared/model/modal.service';
+import { ProvderLoginService } from '../../../core/services/job_provider/auth/login/providerloginservice.service';
 
 @Component({
   selector: 'app-applications',
@@ -24,7 +25,8 @@ export class ApplicationsComponent {
     private ApplicationService: ApplicationService,
     private router: Router,
     private modalService: ModalService,
-    private viewContainerRef: ViewContainerRef
+    private viewContainerRef: ViewContainerRef,
+    private loginService:ProvderLoginService
   ) {
     this.fetchReceivedApplications();
   }
@@ -55,5 +57,10 @@ export class ApplicationsComponent {
 
   refreshApplications() {
     this.fetchReceivedApplications(); // Corrected method to re-fetch application data
+  }
+
+  logout(): void {
+    this.loginService.logout();
+    this.router.navigate(['job_provider_login'])
   }
 }

@@ -13,9 +13,7 @@
     
             <!-- User Info -->
             <div class="flex items-center space-x-4">
-                <span class="text-purple-700 font-medium">Abhishek</span>
-                <img src="https://via.placeholder.com/40" class="rounded-full border-2 border-purple-700" alt="Profile Picture">
-                
+                <span class="text-purple-700 font-medium">{{username}}</span>                
                 <!-- Logout Button -->
                 <button (click)="logout()" class="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-600">
                     Logout
@@ -33,12 +31,6 @@
         <!-- Main Content -->
         <div class="flex-1 p-8">
             <!-- Search and Filter -->
-            <div class="flex justify-between items-center mb-8">
-                <input type="text" placeholder="Search candidates by skill..." class="w-3/4 p-3 border border-gray-300 rounded-lg shadow-sm">
-                <select class="w-1/4 p-3 border border-gray-300 rounded-lg shadow-sm">
-                    <option value="all">All</option>
-                </select>
-            </div>
 
             <!-- Jobs Section -->
             <h1 class="text-3xl font-bold text-gray-800 mb-6">Jobs</h1>

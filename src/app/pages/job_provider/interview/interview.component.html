@@ -1,0 +1,12 @@
+<div class="flex flex-col items-center space-y-6">
+    <div class="flex space-x-6">
+        <video #localVideo autoplay muted class="w-96 h-72 border-2 border-gray-300 rounded-lg shadow-lg"></video>
+        <video #remoteVideo autoplay class="w-96 h-72 border-2 border-gray-300 rounded-lg shadow-lg"></video>
+    </div>
+    <button (click)="startCall()" class="mt-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-md">
+        Start Interview
+    </button>
+    <button (click)="hangUpCall()" class="mt-6 bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-lg shadow-md">
+        End Call
+    </button>
+</div>

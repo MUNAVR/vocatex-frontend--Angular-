@@ -7,6 +7,8 @@
         <nav class="flex space-x-6">
             <a routerLink="/job_provider_landing" class="text-black hover:text-purple-700 font-semibold">Home</a>
             <a routerLink="/job_provider_home" class="text-black hover:text-purple-700 font-semibold">Jobs</a>
+            <a routerLink="/applications" class="text-black hover:text-purple-700 font-semibold">Applications</a>
+
         </nav>
 
         <!-- User Info -->
@@ -40,7 +42,7 @@
                 <!-- Accept/Reject Buttons -->
                 <div class="flex justify-end space-x-2 mt-4">
                     <button (click)="openMessageModal(application)" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">Message</button>
-                    <button class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">Interview</button>
+                    <button (click)="openinterviewModal(application)"  class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">Interview</button>
                 </div>
             </div>
         </div>
@@ -57,4 +59,20 @@
       <app-provider-chat [receiverId]="selectedApplicant?.applicant_id"></app-provider-chat>
     </div>
 </div>
+
+<div *ngIf="showInterviewModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-8 w-full max-w-5xl shadow-lg">
+        <!-- Modal Header -->
+        <div class="flex justify-between items-center border-b pb-4 mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Interview with {{ selectedApplicant?.applicant_name }}</h2>
+            <button (click)="closeinterviwModal()" class="text-gray-500 hover:text-gray-800 text-xl font-semibold">X</button>
+        </div>
+        
+        <!-- Embedded Interview Component -->
+        <div class="flex justify-center">
+            <app-interview [receiverId]="selectedApplicant?.applicant_id"></app-interview>
+        </div>
+    </div>
+</div>
+
   

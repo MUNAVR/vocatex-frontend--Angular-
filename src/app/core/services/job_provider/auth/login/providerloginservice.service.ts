@@ -10,6 +10,7 @@ interface AuthResponse {
   refresh_token: string;
   role: "job_seeker";
   user_id:string;
+  user_name:string;
 }
 
 @Injectable({
@@ -37,6 +38,7 @@ export class ProvderLoginService {
     localStorage.setItem('refresh_token', authResult.refresh_token);
     localStorage.setItem('user_role', authResult.role);
     localStorage.setItem('user_id',authResult.user_id) 
+    localStorage.setItem('user_name',authResult.user_name)
     this.tokenSubject.next(authResult.access_token);
   }
 
