@@ -3,53 +3,77 @@
     body {
         font-family: 'Inter', sans-serif;
     }
-</style>
-<body class="bg-cover bg-center text-white h-screen" style="
-    background-image: url('individuality-concept-silhouettes.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-">
-
-    <!-- Navigation Bar -->
-    <header class="container mx-auto py-4 flex justify-between items-center px-6">
-        <!-- Logo Section -->
-        <div class="flex items-center space-x-2">
-            <!-- Replacing the logo with text 'Vocatex' -->
-            <div>
-                <a routerLink="/" class="text-3xl font-bold text-purple-900">Vocatex</a>
-            </div>
-            
-        </div>
-        <!-- Navigation Links -->
-        <!-- Buttons -->
-        <div class="flex items-center space-x-4">
-            <a routerLink="/job_provider_login" class="text-white border border-white rounded-full px-4 py-2 hover:bg-white hover:text-purple-900 transition duration-300">Log In</a>
-            <a routerLink="/job_provider_register" class="bg-white text-purple-900 font-bold rounded-full px-4 py-2 hover:bg-purple-200 transition duration-300">Register</a>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="flex flex-col items-center justify-center text-center mt-10 px-4">
-        <h1 class="text-2xl font-bold text-purple-400">Employer</h1>
-        
-        <!-- Main Heading with Three Lines -->
-        <!-- Main Heading with Three Lines -->
-        <h2 class="text-4xl md:text-6xl font-bold leading-tight mb-6 text-black">
-            Hourly hiring solutions<br> 
-            for businesses<br> 
-            of all sizes
-        </h2>
-        
-        <!-- Subtext -->
-        <p class="mt-4 text-lg md:text-xl text-black max-w-xl">
-            We’re the hourly work experts, connecting over 6 million hourly job seekers with 700,000 employers.
-        </p>
-        
-        <!-- Post a Job Button -->
-        <a routerLink="/job_provider_login" class="mt-12 bg-white text-purple-900 font-bold rounded-full px-8 py-3 hover:bg-purple-200 transition duration-300">
-            Post a job
+  </style>
+  
+  <body class="bg-cover bg-center text-white h-screen" style="
+      background-image: url('individuality-concept-silhouettes.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+  ">
+    <!-- Transparent Navigation Bar -->
+    <header class="container mx-auto py-4 flex justify-between items-center px-6 absolute top-0 left-0 right-0 z-20">
+      <!-- Logo Section -->
+      <div class="flex items-center space-x-2">
+        <!-- "Vocatex" with purple color -->
+        <a routerLink="/" class="text-3xl font-bold text-white">Vocatex</a>
+      </div>
+  
+      <!-- Navigation Buttons -->
+      <div class="flex items-center space-x-4">
+        <!-- Transparent Login Button -->
+        <a routerLink="/job_provider_login" class="border border-white rounded-full px-4 py-2 text-white hover:bg-white hover:text-purple-900 transition duration-300">
+          Log In
         </a>
-    </main>
+        <!-- Transparent Register Button -->
+        <a routerLink="/job_provider_register" class="border border-white rounded-full px-4 py-2 text-white hover:bg-white hover:text-purple-900 transition duration-300">
+          Register
+        </a>
+      </div>
+    </header>
     
+    <!-- Banner Section -->
+    <header class="relative h-screen flex items-center justify-center text-center bg-cover bg-center" style="
+        background-image: url('path-to-your-banner-image.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    ">
+      <div class="bg-black bg-opacity-50 w-full h-full absolute top-0 left-0"></div>
+      <div class="relative z-10 text-center px-4">
+        <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight">
+          Welcome to Vocatex
+        </h1>
+        <p class="mt-4 text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
+          Helping you find the best talent for your business needs.
+        </p>
+        <a routerLink="/post-job" class="mt-8 inline-block bg-purple-600 text-white font-bold rounded-full px-8 py-3 hover:bg-purple-500 transition duration-300">
+          Post a Job
+        </a>
+      </div>
+    </header>
+  
+    <!-- Features Section -->
+    <section class="container mx-auto py-16 px-4">
+      <h2 class="text-3xl font-bold text-center text-purple-900 mb-10">Our Features</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="bg-white p-6 rounded-lg shadow-lg text-center text-black">
+          <h3 class="text-2xl font-bold mb-4">Feature 1</h3>
+          <p class="text-gray-700">Description of the first feature goes here.</p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="bg-white p-6 rounded-lg shadow-lg text-center text-black">
+          <h3 class="text-2xl font-bold mb-4">Feature 2</h3>
+          <p class="text-gray-700">Description of the second feature goes here.</p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="bg-white p-6 rounded-lg shadow-lg text-center text-black">
+          <h3 class="text-2xl font-bold mb-4">Feature 3</h3>
+          <p class="text-gray-700">Description of the third feature goes here.</p>
+        </div>
+      </div>
+    </section>
+    <app-footer></app-footer>
 </body>
+  

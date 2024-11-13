@@ -32,20 +32,26 @@
 
         <!-- Applications Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div *ngFor="let application of acceptedApplications" class="bg-white p-6 rounded-lg shadow-lg">
+            <div *ngFor="let application of acceptedApplications | paginate: { itemsPerPage: 5, currentPage: currentPage }" class="bg-white p-6 rounded-lg shadow-lg">
                 <h2 class="text-lg font-semibold text-gray-800">Candidate Name: {{ application.applicant_name }}</h2>
                 <p class="text-sm text-gray-600"><strong>Email:</strong> {{ application.applicant_email }}</p>
                 <p class="text-sm text-gray-600"><strong>Position:</strong> {{ application.job_title }}</p>
                 <p class="text-sm text-gray-600"><strong>Status:</strong>{{ application.status }}</p>
                 <p class="text-sm text-gray-600"><strong>Applied on:</strong>{{ application.applied_at | date:'short' }}</p>
-
+        
                 <!-- Accept/Reject Buttons -->
                 <div class="flex justify-end space-x-2 mt-4">
                     <button (click)="openMessageModal(application)" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">Message</button>
-                    <button (click)="openinterviewModal(application)"  class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">Interview</button>
+                    <button (click)="openinterviewModal(application)" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">Interview</button>
                 </div>
             </div>
         </div>
+        
+        <!-- Pagination Controls -->
+        <div class="mt-6 flex justify-center">
+            <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+        </div>
+        
     </div>
 </div>
 

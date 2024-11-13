@@ -6,11 +6,12 @@ import { ApplicationService } from '../../../core/services/job_provider/applicat
 import { applications } from '../../../models/applications';
 import { ProviderChatComponent } from '../provider-chat/provider-chat.component';
 import { InterviewComponent } from '../interview/interview.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-accepted-application',
   standalone: true,
-  imports: [SideBarComponent,CommonModule,FormsModule,ProviderChatComponent,InterviewComponent],
+  imports: [SideBarComponent, CommonModule, FormsModule, ProviderChatComponent, InterviewComponent, NgxPaginationModule],
   templateUrl: './accepted-application.component.html',
   styleUrl: './accepted-application.component.css'
 })
@@ -19,6 +20,7 @@ export class AcceptedApplicationComponent {
   showMessageModal = false;
   showInterviewModal = false;
   selectedApplicant: any;
+  currentPage: number = 1; // Current page for pagination
 
   constructor(
     private ApplicationService: ApplicationService,
@@ -47,8 +49,6 @@ export class AcceptedApplicationComponent {
     this.selectedApplicant = null; // Reset selected applicant
   }
 
-
-
   openinterviewModal(application: any) {
     this.selectedApplicant = application; // Set selected applicant
     this.showInterviewModal = true; // Show the modal
@@ -58,5 +58,4 @@ export class AcceptedApplicationComponent {
     this.showInterviewModal = false; // Close the modal
     this.selectedApplicant = null; // Reset selected applicant
   }
-
 }

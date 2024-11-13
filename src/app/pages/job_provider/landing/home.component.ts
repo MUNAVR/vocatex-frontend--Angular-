@@ -4,13 +4,13 @@ import { Router, RouterLink } from '@angular/router';
 import { ProviderLoginComponent } from '../auth/login/login.component';
 import { ProviderRegisterComponent } from '../auth/register/register.component';
 import { ProvderLoginService } from '../../../core/services/job_provider/auth/login/providerloginservice.service';
+import { FooterComponent } from '../footer/footer.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'provider-app-home',
   standalone: true,
-  imports: [
-    CommonModule,RouterLink,ProviderLoginComponent,ProviderRegisterComponent
-  ],
+  imports: [CommonModule,RouterLink,ProviderLoginComponent,ProviderRegisterComponent,FooterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

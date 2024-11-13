@@ -1,4 +1,4 @@
-import { Component ,ViewContainerRef} from '@angular/core';
+import { Component, ViewContainerRef } from '@angular/core';
 import { ProviderHomeComponent } from '../../landing/home.component';
 import { ProvderLoginService } from '../../../../core/services/job_provider/auth/login/providerloginservice.service';
 import { Router, RouterLink } from '@angular/router';
@@ -9,39 +9,46 @@ import { JobDetails } from '../../../../models/jobDetails';
 import { EditJobComponent } from '../../jobs/edit-job/edit-job.component';
 import { ModalService } from '../../../../shared/model/modal.service';
 import { SideBarComponent } from '../../side-bar/side-bar.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ProviderHomeComponent,CreateJobComponent,CommonModule,RouterLink,EditJobComponent,SideBarComponent],
+  imports: [
+    ProviderHomeComponent,
+    CreateJobComponent,
+    CommonModule,
+    RouterLink,
+    EditJobComponent,
+    SideBarComponent,
+    NgxPaginationModule
+  ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
   jobs: JobDetails[] = [];
-  username:string = ""
+  username: string = "";
+  currentPage: number = 1;  // Added for pagination
 
-  constructor(private loginService:ProvderLoginService,
-    private router:Router, 
-    private HomeService:HomeService,
-    private modalService:ModalService,
+  constructor(
+    private loginService: ProvderLoginService,
+    private router: Router, 
+    private homeService: HomeService,
+    private modalService: ModalService,
     private viewContainerRef: ViewContainerRef
-  
-  ){
-
-      this.loadJobs(),
-      this.getUsername()
-    }
+  ) {
+    this.loadJobs();
+    this.getUsername();
+  }
 
   logout(): void {
     this.loginService.logout();
-    this.router.navigate(['job_provider_login'])
+    this.router.navigate(['job_provider_login']);
   }
 
-
   loadJobs(): void {
-    this.HomeService.getJobsByProvider().subscribe({
+    this.homeService.getJobsByProvider().subscribe({
       next: (data) => {
         this.jobs = data;
       },
@@ -52,7 +59,7 @@ export class HomeComponent {
     });
   }
 
-  getUsername() {
+  getUsername(): void {
     this.username = localStorage.getItem('user_name') || '';
     if (this.username) {
       console.log(`Username: ${this.username}`);
@@ -60,7 +67,4 @@ export class HomeComponent {
       console.log('No username found in local storage.');
     }
   }
-
-
-
 }
