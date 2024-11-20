@@ -37,7 +37,9 @@
               "html2pdf.js",
               "core-js",
               "raf",
-              "rgbcolor"
+              "rgbcolor",
+              "@babel/runtime/helpers/asyncToGenerator",
+              "@babel/runtime/helpers/defineProperty"
             ],
             "server": "src/main.server.ts",
 
