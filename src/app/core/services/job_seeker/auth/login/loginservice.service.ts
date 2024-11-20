@@ -78,7 +78,7 @@ export class LoginserviceService {
 
   loginWithGoogle(token: string) {
     const payload = { token: token };
-    return this.http.post('http://127.0.0.1:8000/api/V1/auth/google-login/', payload);
+    return this.http.post('https://api.vacatex.site/api/V1/auth/google-login', payload);
   }
   
 }

@@ -55,8 +55,7 @@ export class JobApplyComponent implements OnInit {
   get_job_details(): void {
     this.applyService.getJobDetails(this.job_id).subscribe(
       (data) => {
-        console.log("here")
-        this.job_details = data; // Set job details
+        this.job_details = data; 
       },
       (error) => {
         console.error('Error fetching job details:', error);

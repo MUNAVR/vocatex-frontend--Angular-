@@ -72,7 +72,7 @@ export class ProvderLoginService {
 
   loginWithGoogle(token: string) {
     const payload = { token: token };
-    return this.http.post('http://127.0.0.1:8000/api/V1/auth/provider/google-login/', payload);
+    return this.http.post('https://api.vocatex.site/api/V1/auth/provider/google-login', payload);
   }
 }
 

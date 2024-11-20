@@ -37,6 +37,7 @@ export class ApplyService {
 
   user_detials(){
     const headers = this.getAuthHeaders(); 
+    console.log("from user detials service",headers)
     return this.http.get<user_basic_details>(apiUrl.user_basic_details,{headers})
   }
 

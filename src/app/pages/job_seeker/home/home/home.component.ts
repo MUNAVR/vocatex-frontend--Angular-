@@ -103,7 +103,6 @@ export class SeekerHomeComponent {
 
 
   filterByDate(job: JobDetails): boolean {
-      console.log("here")
       if (this.selectedDate === 'all') return true;
 
       const postedDate = new Date(job.created_at);
@@ -126,7 +125,6 @@ export class SeekerHomeComponent {
 
     this.job_service.searchJobs(jobTitle, location).subscribe({
       next: (data) => {
-        console.log('Search results:', data);
 
         this.searchForm.reset(); // Reset the form
 
