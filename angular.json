@@ -32,6 +32,13 @@
          
             ],
             "scripts": [],
+            "allowedCommonJsDependencies": [
+              "canvg",
+              "html2pdf.js",
+              "core-js",
+              "raf",
+              "rgbcolor"
+            ],
             "server": "src/main.server.ts",
 
             "prerender": true,
