@@ -22,7 +22,7 @@ export class WebRTCService implements OnDestroy {
       return;
     }
 
-    this.webrtcSocket = new WebSocket(`ws://localhost:8000/ws/webrtc/${userId}`);
+    this.webrtcSocket = new WebSocket(`wss://api.vocatex.site/ws/webrtc/${userId}`);
     this.webrtcSocket.onopen = () => console.log('WebRTC WebSocket connected');
     this.webrtcSocket.onclose = () => setTimeout(() => this.connectWebRTCWebSocket(), 3000);
     this.webrtcSocket.onerror = (error) => console.error('WebRTC WebSocket error:', error);

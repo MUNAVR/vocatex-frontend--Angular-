@@ -22,7 +22,7 @@ export class SocketServiceService implements OnDestroy {
       return;
     }
 
-    this.websocket = new WebSocket(`ws://localhost:8000/ws/chat/${user_id}`);
+    this.websocket = new WebSocket(`wss://api.vocatex.site/ws/chat/${user_id}`);
 
     this.websocket.onopen = () => {
       console.log('WebSocket connected');
@@ -71,7 +71,7 @@ export class SocketServiceService implements OnDestroy {
   }
 
   getMessages(receiverId: string, senderId: string): Observable<ChatMessage[]> {
-    return this.http.get<ChatMessage[]>(`http://localhost:8000/api/V1/messages/${receiverId}?sender_id=${senderId}`);
+    return this.http.get<ChatMessage[]>(`https://api.vocatex.site/api/V1/messages/${receiverId}?sender_id=${senderId}`);
   }
 
   onMessageReceived(): Observable<any> {
